@@ -1,0 +1,63 @@
+:root{
+    --bgColor: #f9f9f9;
+    --darkText: #082F19;
+    --lightText: #FAFAEA;
+
+    --ctaActive: #177333;
+    --stroke: #C9CBCA;
+    --red: #9F0712;
+    --redBg: #FFE2E2;
+    --iconBg: #EAF3EE;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--bgColor);
+    direction: rtl;
+
+}
+
+.dashboard-wrapper {
+    
+  min-height: 100vh;
+  direction: rtl; /* Ensures the layout flows correctly for Arabic */
+
+  display: flex;
+  gap: 1vw;
+  justify-content: space-between;
+
+  background-color: #177333;
+}
+
+aside{
+    width: 14vw;
+    height: 100vh;
+    padding: 4vw;
+
+    background-color: #ffffff;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);
+
+}
+
+.main-content {
+    width: 85vw;
+    height: 100vh;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    background-color: #9F0712;
+}
+
+header{
+    width: 100%;
+    padding: 3vw;
+    background-color: #efcdcd;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);   
+}
+
