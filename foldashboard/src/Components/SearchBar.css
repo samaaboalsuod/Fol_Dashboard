@@ -1,0 +1,19 @@
+.searchBar{
+    width: 30vw;
+    padding: .6vw 1vw;
+
+    background-color: var(--inputBg);
+
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+
+    border-radius: 8px;
+
+    font-size: 1.2rem;
+    color: #082f196f;
+}
+input{
+    all: unset;
+    font-family: var(--arabicFont);
+}

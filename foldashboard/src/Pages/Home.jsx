@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { supabase } from "../Supabase";
 
 import './Home.css'
+import Nav from '../Components/Nav';
 
 const Home = () => {
     return (<>
@@ -13,7 +14,9 @@ const Home = () => {
   
   <main class="main-content">
 
-    <header></header>
+    <header>
+      <Nav />
+    </header>
 
     <section class="dashboard-body"></section>
 

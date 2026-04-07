@@ -2,12 +2,14 @@
     --bgColor: #f9f9f9;
     --darkText: #082F19;
     --lightText: #FAFAEA;
+    --arabicFont: "Tajawal", sans-serif;
 
     --ctaActive: #177333;
     --stroke: #C9CBCA;
     --red: #9F0712;
     --redBg: #FFE2E2;
     --iconBg: #EAF3EE;
+    --inputBg: #F5F5F0;
 }
 
 *{
@@ -22,16 +24,30 @@ body{
 
 }
 
+h3{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+p{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    font-size: 1rem;
+    font-weight: 400;
+}
+
 .dashboard-wrapper {
     
   min-height: 100vh;
-  direction: rtl; /* Ensures the layout flows correctly for Arabic */
+  direction: rtl; 
 
   display: flex;
-  gap: 1vw;
   justify-content: space-between;
 
-  background-color: #177333;
 }
 
 aside{
@@ -45,19 +61,23 @@ aside{
 }
 
 .main-content {
-    width: 85vw;
+    width: 86vw;
     height: 100vh;
     overflow-y: auto;
 
     display: flex;
     flex-direction: column;
-    background-color: #9F0712;
+    /* background-color: #9F0712; */
 }
 
 header{
     width: 100%;
-    padding: 3vw;
-    background-color: #efcdcd;
+    padding: 1vw 0;
+    background-color: #ffffff;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.25);   
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 

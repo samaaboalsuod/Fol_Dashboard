@@ -1,0 +1,39 @@
+nav{
+    width: 94%;
+    height: fit-content;
+
+    /* background-color: rgba(0, 0, 255, 0.363); */
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navleftContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5vw;
+
+}
+
+.UserDataContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6vw;
+
+}
+
+.userNameCont{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.seperator{
+    width: .1vw;
+    height: 6vh;
+
+    background-color: #082f191e;
+}
