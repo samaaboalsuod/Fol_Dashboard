@@ -24,16 +24,36 @@ body{
 
 }
 
+/* USED FOR PAGE TITLE */
+h1{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    font-size: 2.2rem;
+    font-weight: 600;
+}
+
+h2{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    font-size: 1.4rem;
+    font-weight: 400;
+    opacity: .8;
+} 
+
+/* USED FOR USERNAME */
 h3{
     font-family: var(--arabicFont);
     color: var(--darkText);
 
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 600;
 }
+
+/* USED FOR SIDE BAR LINKS */
 h4{
     font-family: var(--arabicFont);
-    /* color: var(--darkText); */
 
     font-size: 1.2rem;
     font-weight: 400;
@@ -58,7 +78,7 @@ p{
 }
 
 aside{
-    width: 14vw;
+    width: 18vw;
     height: fit-content;
     padding: 1.5vw;
 
@@ -69,11 +89,12 @@ aside{
 
 .main-content {
     width: 86vw;
-    height: 100vh;
+    /* height: 100vh; */
     overflow-y: auto;
 
     display: flex;
     flex-direction: column;
+    align-items: center;
     /* background-color: #9F0712; */
 }
 
@@ -88,3 +109,23 @@ header{
     justify-content: center;
 }
 
+.dashboardBody{
+    width: 94%;
+    height: 100vh;
+    padding: 2vw 0;
+
+    /* background-color: rgba(127, 255, 212, 0.303); */
+}
+
+.topSec{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.filterCont{
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}

@@ -2,8 +2,6 @@ nav{
     width: 94%;
     height: fit-content;
 
-    /* background-color: rgba(0, 0, 255, 0.363); */
-
     display: flex;
     align-items: center;
     justify-content: space-between;
