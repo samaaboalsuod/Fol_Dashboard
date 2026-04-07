@@ -1,0 +1,31 @@
+.StatisticsBigCardCont{
+    width: 25vw;
+    padding: 1vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+}
+
+.topBigCard{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardIcon{
+    width: 48px;
+    height: 48px;
+    border-radius: 4px;
+
+    background-color: var(--iconBg);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
