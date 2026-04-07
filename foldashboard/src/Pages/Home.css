@@ -33,7 +33,7 @@ h3{
 }
 h4{
     font-family: var(--arabicFont);
-    color: var(--darkText);
+    /* color: var(--darkText); */
 
     font-size: 1.2rem;
     font-weight: 400;
@@ -59,7 +59,7 @@ p{
 
 aside{
     width: 14vw;
-    height: 100vh;
+    height: fit-content;
     padding: 1.5vw;
 
     background-color: #ffffff;

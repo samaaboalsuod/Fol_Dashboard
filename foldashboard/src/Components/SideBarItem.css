@@ -1,7 +1,29 @@
-.sideBatItem{
+.sideBarItem {
     display: flex;
     align-items: center;
-    gap: .6vw;
-
+    gap: 0.8vw; /* Slightly increased for better "editorial" breathing room */
+    padding: 0.8vw;
     border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+    color: var(--darkText); /* Default text color */
+    width: 100%;
 }
+
+/* Hover State - Subtle light grey */
+.sideBarItem:hover:not(.active) {
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Selected State */
+.sideBarItem.active {
+    background-color: var(--ctaActive); /* Your FOL Green */
+    color: var(--lightText); /* White Text */
+}
+
+/* Icon logic - Turning the SVG white when active */
+.sideBarItem.active .sideBarIcon {
+    /* This makes any dark SVG appear pure white */
+    filter: brightness(0) invert(1);
+}
+

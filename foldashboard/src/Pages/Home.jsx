@@ -12,7 +12,7 @@ const Home = () => {
 <section class="dashboard-wrapper ">
 
   <aside> 
-    <SideBar />
+    <SideBar activeTitle="لوحة التحكم" />
   </aside>
   
   <main class="main-content">
