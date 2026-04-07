@@ -1,0 +1,17 @@
+.sideBarCont{
+    display: flex;
+    flex-direction: column;
+    gap: 3vw;
+
+    /* background-color: aqua; */
+}
+
+.logo{
+    width: 40px;
+}
+
+.sideItemsCont{
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}

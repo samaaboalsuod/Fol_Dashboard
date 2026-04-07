@@ -1,0 +1,7 @@
+.sideBatItem{
+    display: flex;
+    align-items: center;
+    gap: .6vw;
+
+    border-radius: 8px;
+}

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import './Home.css'
 import Nav from '../Components/Nav';
+import SideBar from '../Components/SideBar';
 
 const Home = () => {
     return (<>
@@ -10,7 +11,9 @@ const Home = () => {
     
 <section class="dashboard-wrapper ">
 
-  <aside> </aside>
+  <aside> 
+    <SideBar />
+  </aside>
   
   <main class="main-content">
 
