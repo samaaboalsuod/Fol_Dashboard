@@ -49,9 +49,9 @@ h6{
 }
 
 .trend-up {
-    color: #1E7033; /* Your FOL brand green */
+    color: var(--ctaActive); 
 }
 
 .trend-down {
-    color: #FF4D4D; /* A soft red for negative trends */
+    color: var(--red); 
 }

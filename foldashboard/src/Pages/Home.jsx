@@ -7,11 +7,7 @@ import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
 import TimeFilter from '../Components/TimeFilter';
 import StatisticsBigCard from '../Components/StatisticsBigCard';
-
-// import AppIcon from '../Assets/appIcon.svg'
-// import KiosIcon from '../Assets/kioskIcon.svg'
-// import UsersIcon from '../Assets/usersIcon.svg'
-// import UpIcon from '../Assets/trend-upIcon.svg'
+import SmallIconCard from '../Components/SmallIconCard';
 
 const Home = () => {
 
@@ -19,6 +15,7 @@ const [pageData, setPageData] = useState({ title: '', subTitle: '' });
 const [cards, setCards] = useState([]); 
 const [loading, setLoading] = useState(true);
 const [activeTime, setActiveTime] = useState('week');
+const [smallCards, setSmallCards] = useState([]);
 
 useEffect(() => {
     const fetchDashboardData = async () => {
@@ -37,20 +34,28 @@ useEffect(() => {
                 });
             }
 
-            // 2. Fetch the 4 Statistics Cards
-            // Since you have URLs in the 'icon' column, we just fetch the text directly
+            // 2. Fetch the 4 Big Statistics Cards
             const { data: cardData } = await supabase
                 .from('DashCards')
                 .select('*')
                 .order('id', { ascending: true })
                 .limit(4);
 
-            if (cardData) {
-                setCards(cardData);
-            }
+            if (cardData) setCards(cardData);
+
+            // 3. Fetch the 6 Small Cards (Range 4 to 9)
+            const { data: smallCardData } = await supabase
+                .from('DashCards')
+                .select('*')
+                .order('id', { ascending: true })
+                .range(4, 9);
+
+            if (smallCardData) setSmallCards(smallCardData);
+
         } catch (error) {
             console.error('Dashboard Load Error:', error);
         } finally {
+            // Only call this once at the very end
             setLoading(false);
         }
     };
@@ -63,7 +68,7 @@ if (loading) return <div>Loading...</div>;
     
 
 
-    return (<>
+return (<>
     
     
 <section class="dashboard-wrapper ">
@@ -106,7 +111,18 @@ if (loading) return <div>Loading...</div>;
     ))}
 </div>
 
-      <div className='bigCardsRow'></div>
+      <div className='bigCardsRow'>
+        {smallCards.map((card) => (
+        <SmallIconCard
+            key={card.id}
+            title={card.Title}
+            value={card.Value}
+            subTitle={card.SubTitle}
+            src={card.icon} // Uses the same URL logic as the big cards
+            alt={card.alt}
+        />
+       ))}
+      </div>
 
     </section>
 

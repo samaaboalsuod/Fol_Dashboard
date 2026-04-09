@@ -1,0 +1,18 @@
+.smallCardIconCont{
+    width: 16vw;
+    padding: 1.2vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: .2vw;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+    border-radius: 8px;
+}
+
+.titleIconCont{
+    display: flex;
+    gap: .4rem;
+    align-items: center;
+}
