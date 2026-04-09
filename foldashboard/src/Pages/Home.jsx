@@ -2,12 +2,18 @@ import React, { Component, useState, useEffect } from 'react';
 import { supabase } from "../Supabase";
 
 import './Home.css'
+
 import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
 import TimeFilter from '../Components/TimeFilter';
 import StatisticsBigCard from '../Components/StatisticsBigCard';
 import SmallIconCard from '../Components/SmallIconCard';
+import Titles from '../Components/Titles';
+
+import MoneyIcon from '../Assets/moneyIcon.svg'
+import NumbersNofill from '../Components/NumbersNofill';
+
 
 const Home = () => {
 
@@ -16,6 +22,7 @@ const [cards, setCards] = useState([]);
 const [loading, setLoading] = useState(true);
 const [activeTime, setActiveTime] = useState('week');
 const [smallCards, setSmallCards] = useState([]);
+const [noFillCards, setNoFillCards] = useState([]);
 
 useEffect(() => {
     const fetchDashboardData = async () => {
@@ -34,7 +41,7 @@ useEffect(() => {
                 });
             }
 
-            // 2. Fetch the 4 Big Statistics Cards
+            // 2. Fetch the 4 Big Statistics Cards (Rows 1-4)
             const { data: cardData } = await supabase
                 .from('DashCards')
                 .select('*')
@@ -43,7 +50,7 @@ useEffect(() => {
 
             if (cardData) setCards(cardData);
 
-            // 3. Fetch the 6 Small Cards (Range 4 to 9)
+            // 3. Fetch the 6 Small Cards (Rows 5-10)
             const { data: smallCardData } = await supabase
                 .from('DashCards')
                 .select('*')
@@ -52,18 +59,25 @@ useEffect(() => {
 
             if (smallCardData) setSmallCards(smallCardData);
 
+            // 4. Fetch the 4 No-Fill Cards (Rows 11-14)
+            const { data: noFillData } = await supabase
+                .from('DashCards')
+                .select('*')
+                .order('id', { ascending: true })
+                .range(10, 13); // Index 10 is row 11
+
+            if (noFillData) setNoFillCards(noFillData);
+
         } catch (error) {
             console.error('Dashboard Load Error:', error);
         } finally {
-            // Only call this once at the very end
+            // This stops the loading screen once all data is finished
             setLoading(false);
         }
     };
 
     fetchDashboardData();
 }, []);
-
-if (loading) return <div>Loading...</div>;
 
     
 
@@ -98,7 +112,7 @@ return (<>
 
       </div>
 
-<div className='bigCardsRow' style={{ display: 'flex', gap: '1vw', direction: 'rtl' }}>
+<div className='bigCardsRow' >
     {cards.map((card) => (
         <StatisticsBigCard 
             key={card.id}
@@ -123,6 +137,42 @@ return (<>
         />
        ))}
       </div>
+
+      <div className='part3'>
+        <div className='bestCardCont'>
+
+          <Titles src={MoneyIcon} title='نظرة عامة على المبيعات' />
+
+          <div className='numbContRow'>
+
+            {noFillCards.map((card) => (
+              <NumbersNofill 
+                key={card.id}
+                title={card.Title}
+                value={card.Value} 
+              />
+            ))}
+
+          </div>
+
+          <h4>أفضل المنتجات مبيعًا</h4>
+
+        </div>
+      </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </section>
 
