@@ -14,7 +14,6 @@ import ProductIcon from '../Assets/productIcon.svg'
 import OrderIcon from '../Assets/ordersIcon.svg'
 import AppIcon from '../Assets/appIcon.svg'
 import KiosIcon from '../Assets/kioskIcon.svg'
-import SupportIcon from '../Assets/supportIcon.svg'
 import UsersIcon from '../Assets/usersIcon.svg'
 import SettiingIcon from '../Assets/settingIcon.svg'
 

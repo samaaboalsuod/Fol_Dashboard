@@ -6,6 +6,12 @@ import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
 import TimeFilter from '../Components/TimeFilter';
+import StatisticsBigCard from '../Components/StatisticsBigCard';
+
+import AppIcon from '../Assets/appIcon.svg'
+import KiosIcon from '../Assets/kioskIcon.svg'
+import UsersIcon from '../Assets/usersIcon.svg'
+import UpIcon from '../Assets/trend-upIcon.svg'
 
 const Home = () => {
 
@@ -67,6 +73,13 @@ const Home = () => {
           />
         </div>
 
+      </div>
+
+      <div className='bigCardsRow'>
+        <StatisticsBigCard  src={UpIcon} title='زوار الموقع (شهريًا)' value='24,563' subTitle='↑ +12.5%'  />
+        <StatisticsBigCard  src={AppIcon} title='مستخدمو التطبيق' value='8,492' subTitle='↑ +12.5%'  />
+        <StatisticsBigCard  src={KiosIcon} title='جلسات الكشك' value='1,234' subTitle='↓ -2.1%'  />
+        <StatisticsBigCard  src={UsersIcon} title='المستخدمون النشطون' value='3,847' subTitle='↑ +12.5%'  />
       </div>
 
     </section>
