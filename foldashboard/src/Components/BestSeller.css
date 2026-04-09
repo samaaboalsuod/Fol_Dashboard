@@ -1,0 +1,36 @@
+.bestSeller{
+    width: 100%;
+    padding: 1vw 1.2vw;
+    border-radius: 8px;
+    background-color: #f5f5f080;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.bestRight{
+    display: flex;
+    align-items: center;
+    gap: .6vw;
+}
+
+.numbCOlBest{
+    width: 6vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: .2vw;
+}
+
+.numbCOlBest h2{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    /* font-size: 1.3rem; */
+    font-weight: 900;
+}
+/* .numbCOlBest h6{
+
+} */

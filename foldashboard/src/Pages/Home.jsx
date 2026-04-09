@@ -13,6 +13,7 @@ import Titles from '../Components/Titles';
 
 import MoneyIcon from '../Assets/moneyIcon.svg'
 import NumbersNofill from '../Components/NumbersNofill';
+import BestSeller from '../Components/BestSeller';
 
 
 const Home = () => {
@@ -23,6 +24,7 @@ const [loading, setLoading] = useState(true);
 const [activeTime, setActiveTime] = useState('week');
 const [smallCards, setSmallCards] = useState([]);
 const [noFillCards, setNoFillCards] = useState([]);
+const [bestSellers, setBestSellers] = useState([]);
 
 useEffect(() => {
     const fetchDashboardData = async () => {
@@ -64,21 +66,48 @@ useEffect(() => {
                 .from('DashCards')
                 .select('*')
                 .order('id', { ascending: true })
-                .range(10, 13); // Index 10 is row 11
+                .range(10, 13); 
 
             if (noFillData) setNoFillCards(noFillData);
+
+            // 5. Fetch Best Sellers from both tables
+            // We use 'NameAR' for both based on your latest table screenshots
+            const [plantsResponse, productsResponse] = await Promise.all([
+                supabase.from('Plant').select('NameAR, Price, TotalSales'),
+                supabase.from('Products').select('NameAR, Price, TotalSales')
+            ]);
+
+            // Combine the data into one list
+            const allItems = [
+                ...(plantsResponse.data || []).map(item => ({
+                    title: item.NameAR,
+                    price: item.Price,
+                    pieces: item.TotalSales
+                })),
+                ...(productsResponse.data || []).map(item => ({
+                    title: item.NameAR,
+                    price: item.Price,
+                    pieces: item.TotalSales
+                }))
+            ];
+
+            // Sort by TotalSales (highest to lowest) and take the top 3
+            const top3 = allItems
+                .filter(item => item.pieces !== null)
+                .sort((a, b) => b.pieces - a.pieces)
+                .slice(0, 3);
+
+            setBestSellers(top3);
 
         } catch (error) {
             console.error('Dashboard Load Error:', error);
         } finally {
-            // This stops the loading screen once all data is finished
             setLoading(false);
         }
     };
 
     fetchDashboardData();
 }, []);
-
     
 
 
@@ -156,6 +185,18 @@ return (<>
           </div>
 
           <h4>أفضل المنتجات مبيعًا</h4>
+
+          <div className='bestCont'>
+            {bestSellers.map((item, index) => (
+        <BestSeller 
+            key={index}
+            rank={index + 1}
+            title={item.title}
+            pieces={item.pieces}
+            value={`$${(item.price * item.pieces).toLocaleString()}`} 
+        />
+    ))}
+          </div>
 
         </div>
       </div>
