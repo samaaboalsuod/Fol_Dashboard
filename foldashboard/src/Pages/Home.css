@@ -132,7 +132,7 @@ header{
 }
 
 .bigCardsRow{
-    margin: 3vw 0;
+    margin: 3vw 0 0 0;
     width: 100%;
     display: flex;
     align-items: center;

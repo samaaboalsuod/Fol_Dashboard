@@ -47,3 +47,11 @@ h6{
     font-size: 1rem;
     font-weight: 600;
 }
+
+.trend-up {
+    color: #1E7033; /* Your FOL brand green */
+}
+
+.trend-down {
+    color: #FF4D4D; /* A soft red for negative trends */
+}

@@ -8,41 +8,59 @@ import PageTitle from '../Components/PageTitle';
 import TimeFilter from '../Components/TimeFilter';
 import StatisticsBigCard from '../Components/StatisticsBigCard';
 
-import AppIcon from '../Assets/appIcon.svg'
-import KiosIcon from '../Assets/kioskIcon.svg'
-import UsersIcon from '../Assets/usersIcon.svg'
-import UpIcon from '../Assets/trend-upIcon.svg'
+// import AppIcon from '../Assets/appIcon.svg'
+// import KiosIcon from '../Assets/kioskIcon.svg'
+// import UsersIcon from '../Assets/usersIcon.svg'
+// import UpIcon from '../Assets/trend-upIcon.svg'
 
 const Home = () => {
 
-    const [pageData, setPageData] = useState({ title: '', subTitle: '' });
-    const [loading, setLoading] = useState(true);
+const [pageData, setPageData] = useState({ title: '', subTitle: '' });
+const [cards, setCards] = useState([]); 
+const [loading, setLoading] = useState(true);
+const [activeTime, setActiveTime] = useState('week');
 
-    const [activeTime, setActiveTime] = useState('week');
-
-    useEffect(() => {
-        const fetchPageTitle = async () => {
-            const { data, error } = await supabase
+useEffect(() => {
+    const fetchDashboardData = async () => {
+        try {
+            // 1. Fetch Page Title
+            const { data: titleData } = await supabase
                 .from('PageTitle')
                 .select('Title, Description')
-                .eq('id', 1) // Fetching the Dashboard row
+                .eq('id', 1)
                 .single();
 
-            if (error) {
-                console.error('Error fetching data:', error);
-            } else if (data) {
+            if (titleData) {
                 setPageData({
-                    title: data.Title,
-                    subTitle: data.Description
+                    title: titleData.Title,
+                    subTitle: titleData.Description
                 });
             }
+
+            // 2. Fetch the 4 Statistics Cards
+            // Since you have URLs in the 'icon' column, we just fetch the text directly
+            const { data: cardData } = await supabase
+                .from('DashCards')
+                .select('*')
+                .order('id', { ascending: true })
+                .limit(4);
+
+            if (cardData) {
+                setCards(cardData);
+            }
+        } catch (error) {
+            console.error('Dashboard Load Error:', error);
+        } finally {
             setLoading(false);
-        };
+        }
+    };
 
-        fetchPageTitle();
-    }, []);
+    fetchDashboardData();
+}, []);
 
-    if (loading) return <div>Loading...</div>;
+if (loading) return <div>Loading...</div>;
+
+    
 
 
     return (<>
@@ -75,12 +93,20 @@ const Home = () => {
 
       </div>
 
-      <div className='bigCardsRow'>
-        <StatisticsBigCard  src={UpIcon} title='زوار الموقع (شهريًا)' value='24,563' subTitle='↑ +12.5%'  />
-        <StatisticsBigCard  src={AppIcon} title='مستخدمو التطبيق' value='8,492' subTitle='↑ +12.5%'  />
-        <StatisticsBigCard  src={KiosIcon} title='جلسات الكشك' value='1,234' subTitle='↓ -2.1%'  />
-        <StatisticsBigCard  src={UsersIcon} title='المستخدمون النشطون' value='3,847' subTitle='↑ +12.5%'  />
-      </div>
+<div className='bigCardsRow' style={{ display: 'flex', gap: '1vw', direction: 'rtl' }}>
+    {cards.map((card) => (
+        <StatisticsBigCard 
+            key={card.id}
+            title={card.Title}     // Matches your Supabase "Title" column
+            value={card.Value}     // Matches your Supabase "Value" column
+            subTitle={card.SubTitle} // Matches your Supabase "SubTitle" column
+            src={card.icon} // Uses the string in the "icon" column to pick the SVG
+            alt={card.alt}         // Matches your Supabase "alt" column
+        />
+    ))}
+</div>
+
+      <div className='bigCardsRow'></div>
 
     </section>
 
