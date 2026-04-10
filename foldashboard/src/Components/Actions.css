@@ -1,0 +1,40 @@
+.actionCard {
+    width: 16vw;
+    padding: 1.5vw;
+
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items for the quick action look */
+    gap: 1.2vw;
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.actionCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.actionIconWrapper {
+    width: 4vw;
+    height: 4vw;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.actionIconWrapper img {
+    width: 2vw; /* Adjust icon size inside the square */
+    height: auto;
+}
+
+.actionCard h4 {
+    margin: 0;
+    font-size: 1.1vw;
+    color: var(--darkText);
+    font-weight: 500;
+}

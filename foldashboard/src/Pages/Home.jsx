@@ -19,6 +19,7 @@ import TotalRatio from '../Components/TotalRatio';
 import GrowthRow from '../Components/GrowthRow';
 import RecentCard from '../Components/RecentCard';
 import AlertCard from '../Components/AlertCard';
+import Actions from '../Components/Actions';
 
 import MoneyIcon from '../Assets/moneyIcon.svg';
 import QuestionIcon from '../Assets/questionIcon.svg';
@@ -27,6 +28,16 @@ import ChattIcon from '../Assets/chatIcon.svg';
 import ClockIcon from '../Assets/clockIcon.svg';
 import Alert from '../Assets/alertIcon.svg'
 import SpeedIcon from '../Assets/speedIcon.svg'
+
+import ProductIcon from '../Assets/productIcon.svg'
+import LessonsIcon from '../Assets/lessonsIcon.svg'
+import PagesIcon from '../Assets/pagesIcon.svg'
+import SettiingIcon from '../Assets/settingIcon.svg'
+import UsersIcon from '../Assets/usersIcon.svg'
+import PlusIcon from '../Assets/plusIcon.svg'
+import Footer from '../Components/Footer';
+
+
 
 
 const Home = () => {
@@ -48,6 +59,13 @@ const Home = () => {
     const [recentActivity, setRecentActivity] = useState([]);
     const [rawPlants, setRawPlants] = useState([]);
     const [rawProducts, setRawProducts] = useState([]);
+    const quickActions = [
+    { id: 1, title: 'إضافة منتج', src: ProductIcon, color: '#1890FF' },
+    { id: 2, title: 'إضافة درس', src: LessonsIcon , color: '#722ED1' },
+    { id: 3, title: 'إضافة صفحة', src: PagesIcon , color: '#FA8C16' },
+    { id: 4, title: 'الإعدادات', src: SettiingIcon , color: '#8C8C8C' },
+    { id: 5, title: 'إضافة مستخدم', src: UsersIcon , color: '#EB2F96' },
+];
 
 
 
@@ -152,6 +170,7 @@ const alertsData = [
                 </aside>
 
                 <main className="main-content">
+
                     <header>
                         <Nav />
                     </header>
@@ -306,17 +325,34 @@ const alertsData = [
 
                       <div className='part5'>
                           <Titles src={SpeedIcon} title='إجراءات سريعة' />
+
+                          <div className='bigCardsRow'>
+                            {quickActions.map(action => (
+                              <Actions 
+                                key={action.id}
+                                title={action.title}
+                                src={action.src}
+                                color={action.color}
+                              />
+                            ))}
+
+                          <Actions 
+                               title="إضافة إجراء سريع" 
+                               src={PlusIcon} 
+                               color="#2D3E33" 
+                          />
+                          
+                          </div>
+
                       </div>
 
 
-
-
-
-
-
-
+                    <Footer />
                     </section>
+
+
                 </main>
+
             </section>
         </>
     );
