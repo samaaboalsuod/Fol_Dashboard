@@ -5,3 +5,12 @@
     align-items: center;
     justify-content: space-between;
 }
+
+.plantsGrid{
+    margin: 2vw 0 1vw 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1vw;
+    justify-content: space-between;
+}

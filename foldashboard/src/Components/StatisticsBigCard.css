@@ -9,6 +9,18 @@
     background-color: #FFFFFF;
     border: 1px solid #E7EBE8;
     border-radius: 8px;
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.StatisticsBigCardCont:hover{
+        /* Lift effect */
+    transform: translateY(-5px);
+    
+    /* Elegant shadow using a hint of your brand green or neutral gray */
+    box-shadow: 0 12px 24px rgba(8, 47, 25, 0.08); 
+    
+    /* Optional: Change border to your brand color */
+    border-color: var(--ctaActive); 
 }
 
 .topBigCard{

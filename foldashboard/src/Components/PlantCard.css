@@ -1,0 +1,66 @@
+.plantCard{
+    width: 18vw;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: .3vw;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.plantCard:hover {
+    transform: translateY(-5px);
+    
+    box-shadow: 0 12px 24px rgba(8, 47, 25, 0.08); 
+    
+    border-color: var(--ctaActive); 
+}
+
+
+
+.cardImageContainer {
+    width: 100%;       /* Fill the full width of the card */
+    height: 200px;      /* Set your specific desired height here */
+    overflow: hidden;   /* Clip the image if it exceeds this box */
+    border-radius: 8px 8px 0 0; /* Match card corners (top only) */
+}
+
+.cardImageContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* This is the magic line that prevents stretching */
+    object-position: center; /* Keeps the plant centered in the crop */
+    display: block;
+}
+
+
+
+.plantDataCol{
+    padding: 1.2vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.plantNaming{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .2vw;
+}
+
+.buttonRow{
+    margin-top: .4vw;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

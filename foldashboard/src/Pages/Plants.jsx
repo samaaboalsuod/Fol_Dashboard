@@ -3,7 +3,6 @@ import { supabase } from "../Supabase";
 
 import './Plants.css';
 
-
 import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
@@ -13,6 +12,7 @@ import SecondaryButton from '../Components/SecondaryButton';
 
 import AddIcon from '../Assets/addIcon.svg'
 import FilterIcon from '../Assets/filterIcon.svg'
+import PlantCard from '../Components/PlantCard';
 
 
 
@@ -20,41 +20,59 @@ import FilterIcon from '../Assets/filterIcon.svg'
 
 const Plants = () => {
 
+
     const [pageData, setPageData] = useState({ title: '', subTitle: '' });
     const [loading, setLoading] = useState(true);
+    const [plants, setPlants] = useState([]);
 
 useEffect(() => {
-        const fetchPageHeader = async () => {
-            try {
-                setLoading(true); // Ensure it starts loading
-                const { data: titleData, error } = await supabase
-                    .from('PageTitle')
-                    .select('Title, Description')
-                    .eq('id', 2) // Double check if Plants is ID 2 in your DB!
-                    .single();
+    const fetchData = async () => {
+        try {
+            setLoading(true);
 
-                if (error) {
-                    console.error('Supabase Error:', error.message);
-                }
+            // 1. Fetch Page Header (Title and Description)
+            const { data: titleData, error: titleError } = await supabase
+                .from('PageTitle')
+                .select('Title, Description')
+                .eq('id', 2) 
+                .single();
 
-                if (titleData) {
-                    setPageData({ 
-                        title: titleData.Title, 
-                        subTitle: titleData.Description 
-                    });
-                } else {
-                    // Fallback title so the page isn't blank if DB fails
-                    setPageData({ title: 'النباتات', subTitle: 'إدارة مخزون النباتات' });
-                }
-            } catch (err) {
-                console.error('Fetch Error:', err);
-            } finally {
-                setLoading(false); // This MUST run to stop the "loading forever"
+            if (titleError) console.error('Header Error:', titleError.message);
+
+            // 2. Fetch All Plants (Including the new care columns)
+            // We select '*' to get NameAR, NameEN, Cover_Photo, Category, Difficulty, etc.
+            const { data: plantsData, error: plantsError } = await supabase
+                .from('Plant')
+                .select('*')
+                .order('id', { ascending: true }); // Keeps them in order 1-12
+
+            if (plantsError) {
+                console.error('Plants Fetch Error:', plantsError.message);
             }
-        };
 
-        fetchPageHeader();
-    }, []);
+            // 3. Update States
+            if (titleData) {
+                setPageData({ 
+                    title: titleData.Title, 
+                    subTitle: titleData.Description 
+                });
+            } else {
+                setPageData({ title: 'إدارة النباتات', subTitle: 'إحصاء قاعدة بيانات شاملة للنباتات' });
+            }
+
+            if (plantsData) {
+                setPlants(plantsData); // This fills your grid with the 12 cards
+            }
+
+        } catch (err) {
+            console.error('Unexpected Fetch Error:', err);
+        } finally {
+            setLoading(false); // Stop loading once both queries finish
+        }
+    };
+
+    fetchData();
+}, []);
 
     const handleOpenModal = () => {
         console.log("Opening Add Plant Modal...");
@@ -91,6 +109,12 @@ useEffect(() => {
                 <div className='searchFilter'>
                     <SearchBar placeholder="البحث بالاسم العربي، الإنجليزي، أو الاسم العلمي..." />
                     <SecondaryButton label="فلاتر متقدمة" src={FilterIcon} />
+                </div>
+
+                <div className='plantsGrid'>
+                    {plants.map((plant) => (
+                       <PlantCard key={plant.id} plant={plant} />
+                     ))}
                 </div>
 
 

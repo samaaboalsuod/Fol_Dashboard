@@ -1,0 +1,41 @@
+.deleteButton {
+    /* Matching mainButton base styling */
+    padding: .7rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4vw;
+    
+    /* Specific Delete Styling */
+    border: 1px solid var(--red);
+    background-color: var(--redBg);
+}
+
+.deleteText {
+    color: var(--red);
+    font-family: var(--arabicFont); /* Ensure this matches your project font */
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.deleteIcon {
+    width: 20px; /* Adjust size to match your design */
+    height: auto;
+}
+
+/* Hover State */
+.deleteButton:hover {
+    background-color: var(--red);
+}
+
+.deleteButton:hover .deleteText {
+    color: white;
+}
+
+/* Optional: making the icon white on hover if it's an SVG mask or colored via CSS */
+.deleteButton:hover .deleteIcon {
+    filter: brightness(0) invert(1);
+}
