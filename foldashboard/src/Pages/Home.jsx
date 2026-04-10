@@ -4,6 +4,7 @@ import { formatDistanceToNow, isValid } from 'date-fns'; // Added isValid check
 import { ar } from 'date-fns/locale';
 
 import './Home.css';
+
 import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
@@ -17,15 +18,19 @@ import AskTotalCard from '../Components/AskTotalCard';
 import TotalRatio from '../Components/TotalRatio';
 import GrowthRow from '../Components/GrowthRow';
 import RecentCard from '../Components/RecentCard';
+import AlertCard from '../Components/AlertCard';
 
 import MoneyIcon from '../Assets/moneyIcon.svg';
 import QuestionIcon from '../Assets/questionIcon.svg';
 import FolIcon from '../Assets/folIcon.svg';
 import ChattIcon from '../Assets/chatIcon.svg';
 import ClockIcon from '../Assets/clockIcon.svg';
+import Alert from '../Assets/alertIcon.svg'
+import SpeedIcon from '../Assets/speedIcon.svg'
+
 
 const Home = () => {
-  
+
     const [pageData, setPageData] = useState({ title: '', subTitle: '' });
     const [cards, setCards] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -41,6 +46,10 @@ const Home = () => {
     });
     const [weeklyData, setWeeklyData] = useState([]);
     const [recentActivity, setRecentActivity] = useState([]);
+    const [rawPlants, setRawPlants] = useState([]);
+    const [rawProducts, setRawProducts] = useState([]);
+
+
 
     useEffect(() => {
         const fetchDashboardData = async () => {
@@ -103,6 +112,26 @@ const Home = () => {
         fetchDashboardData();
     }, []);
 
+    const lowStockPlantsCount = rawPlants.filter(p => p.Stock !== null && p.Stock < 10).length;
+    const lowStockProductsCount = rawProducts.filter(p => p.Stock !== null && p.Stock < 10).length;
+    const totalLowStock = lowStockPlantsCount + lowStockProductsCount;
+
+const alertsData = [
+    { 
+        id: 'alert-stock', 
+        title: 'حالة المخزون', 
+        action: totalLowStock > 0 ? 'انقر للمراجعة' : 'جميع المنتجات متوفرة', 
+        // Logic: If 0, show "Safe" icon/text instead of the number 0
+        value: totalLowStock > 0 ? totalLowStock : '✨', 
+    },
+    { 
+        id: 'alert-requests', 
+        title: 'طلبات الخبراء المعلقة', 
+        action: stats.pendingRequests > 0 ? 'تحتاج للمعالجة فورا' : 'لا يوجد طلبات حالياً', 
+        value: stats.pendingRequests > 0 ? stats.pendingRequests : '✨', 
+    }
+];
+
     // Date formatter helper to prevent crashes
     const getRelativeTime = (dateString) => {
         const date = new Date(dateString);
@@ -110,11 +139,14 @@ const Home = () => {
         return formatDistanceToNow(date, { addSuffix: true, locale: ar });
     };
 
+
+
     if (loading) return <div className="loading-screen">جاري التحميل...</div>;
 
     return (
         <>
             <section className="dashboard-wrapper">
+
                 <aside>
                     <SideBar activeTitle="لوحة التحكم" />
                 </aside>
@@ -125,6 +157,7 @@ const Home = () => {
                     </header>
 
                     <section className="dashboardBody">
+
                         <div className='topSec'>
                             <PageTitle title={pageData.title} subTitle={pageData.subTitle} />
                             <div className='filterCont'>
@@ -135,8 +168,9 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* BIG CARDS */}
+
                         <div className='bigCardsRow'>
+
                             {cards && cards.map((card) => (
                                 <StatisticsBigCard 
                                     key={card.id}
@@ -147,10 +181,11 @@ const Home = () => {
                                     alt={card.alt}
                                 />
                             ))}
+
                         </div>
 
-                        {/* SMALL CARDS */}
                         <div className='bigCardsRow'>
+
                             {smallCards && smallCards.map((card) => (
                                 <SmallIconCard
                                     key={card.id}
@@ -164,7 +199,7 @@ const Home = () => {
                         </div>
 
                         <div className='part3'>
-                            {/* SALES SECTION */}
+
                             <div className='bestCardCont'>
                                 <Titles src={MoneyIcon} title='نظرة عامة على المبيعات' />
                                 <div className='numbContRow'>
@@ -190,7 +225,7 @@ const Home = () => {
                                 </div>
                             </div>
 
-                            {/* QUESTIONS SECTION */}
+
                             <div className='questionsTotalCont'>
                                 <Titles src={QuestionIcon} title='الأسئلة القادمة' />
                                 <AskTotalCard 
@@ -218,7 +253,7 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* WEEKLY GROWTH SECTION */}
+
                         <div className='weeklyCont'>
                             <Titles title='النمو الأسبوعي' />
                             {weeklyData && weeklyData.length > 0 ? weeklyData.map((item) => (
@@ -235,10 +270,12 @@ const Home = () => {
                             )) : <p>لا توجد بيانات نمو</p>}
                         </div>
 
-                        {/* RECENT ACTIVITY SECTION */}
+
                         <div className='part4'>
+
                             <div className='recentCont'>
                                 <Titles src={ClockIcon} title='النشاط الأخير' />
+
                                 {recentActivity && recentActivity.length > 0 ? recentActivity.map((item) => (
                                     <RecentCard 
                                         key={item.id}
@@ -249,7 +286,35 @@ const Home = () => {
                                     />
                                 )) : <p>لا يوجد نشاط أخير</p>}
                             </div>
+
+                            <div className='recentCont'>
+                                <Titles src={Alert} title='التنبيهات' />
+
+                                {alertsData.map(alert => (
+
+                                  <AlertCard 
+                                    key={alert.id}
+                                    title={alert.title}
+                                    action={alert.action}
+                                    value={alert.value}
+                                  />
+        
+                                ))}
+
+                            </div>
                         </div>
+
+                      <div className='part5'>
+                          <Titles src={SpeedIcon} title='إجراءات سريعة' />
+                      </div>
+
+
+
+
+
+
+
+
                     </section>
                 </main>
             </section>

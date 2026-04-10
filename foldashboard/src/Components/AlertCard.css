@@ -1,0 +1,26 @@
+.alertCard{
+    width: 100%;
+    padding: 1vw 1.2vw;
+    border-radius: 8px;
+    background-color: var( --alertBg);
+    border: 1px solid var(--warning);
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.colorCircle{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+
+    background-color: var( --warning);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.colorCircle h3{
+    color: var(--lightText);    
+}
