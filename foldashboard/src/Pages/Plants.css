@@ -14,3 +14,10 @@
     gap: 1vw;
     justify-content: space-between;
 }
+
+.stats-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin: 2vw 0;
+}
