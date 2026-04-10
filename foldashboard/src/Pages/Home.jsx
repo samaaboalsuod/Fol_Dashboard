@@ -19,6 +19,7 @@ import QuestionIcon from '../Assets/questionIcon.svg'
 import FolIcon from '../Assets/folIcon.svg'
 import ChattIcon from '../Assets/chatIcon.svg'
 import TotalRatio from '../Components/TotalRatio';
+import GrowthRow from '../Components/GrowthRow';
 
 
 
@@ -35,8 +36,9 @@ const [stats, setStats] = useState({
         totalQuestions: 0,
         pendingRequests: 0,
         satisfactionRate: 0,
-        aiQueries: 156 // Keep static or fetch from AI_Logs if created
+        aiQueries: 156 
     });
+const [weeklyData, setWeeklyData] = useState([]);
 
 useEffect(() => {
     const fetchDashboardData = async () => {
@@ -67,17 +69,26 @@ useEffect(() => {
                 setNoFillCards(cardData.slice(10, 14));
             }
 
-            // 3. Fetch Best Sellers & Expert Request Stats in Parallel
-            const [plantsRes, productsRes, totalRes, pendingRes, ratingRes] = await Promise.all([
+            // 3. Fetch Best Sellers, Expert Stats, and Weekly Growth in Parallel
+            const [plantsRes, productsRes, totalRes, pendingRes, ratingRes, growthRes] = await Promise.all([
                 supabase.from('Plant').select('NameAR, Price, TotalSales'),
                 supabase.from('Products').select('NameAR, Price, TotalSales'),
-                // Total rows in Expert_Requests
                 supabase.from('Expert_Requests').select('*', { count: 'exact', head: true }),
-                // Count rows specifically matching "قيد الانتظار"
                 supabase.from('Expert_Requests').select('*', { count: 'exact', head: true }).eq('StatusAR', 'قيد الانتظار'),
-                // Get ratings that aren't NULL to calculate Satisfaction
-                supabase.from('Expert_Requests').select('Rating').not('Rating', 'is', null)
+                supabase.from('Expert_Requests').select('Rating').not('Rating', 'is', null),
+                supabase.from('Weekly_Growth').select('*').order('id', { ascending: true }) // New Fetch
             ]);
+
+            console.log("Supabase Growth Response:", growthRes);
+
+if (growthRes.error) {
+    console.error("Supabase Table Error:", growthRes.error.message);
+}
+
+if (growthRes.data) {
+    console.log("Weekly Data Rows:", growthRes.data); // This shows the actual 7 days
+    setWeeklyData(growthRes.data);
+}
 
             // --- Process Best Sellers ---
             const allItems = [
@@ -101,20 +112,22 @@ useEffect(() => {
             setBestSellers(top3);
 
             // --- Process Expert Request Stats ---
-            // Calculate average only if there are ratings
             const avgRating = ratingRes.data?.length 
                 ? (ratingRes.data.reduce((acc, curr) => acc + curr.Rating, 0) / ratingRes.data.length)
                 : 0;
-            
-            // Map 1-5 scale to 100%
             const satisfactionPercent = Math.round((avgRating / 5) * 100);
 
             setStats({
                 totalQuestions: totalRes.count || 0,
                 pendingRequests: pendingRes.count || 0,
                 satisfactionRate: satisfactionPercent || 0,
-                aiQueries: 156 // Static placeholder per design
+                aiQueries: 156 
             });
+
+            // --- Process Weekly Growth ---
+            if (growthRes.data) {
+                setWeeklyData(growthRes.data);
+            }
 
         } catch (error) {
             console.error('Dashboard Load Error:', error);
@@ -259,6 +272,25 @@ return (<>
           
         </div>
 
+
+      </div>
+
+      <div className='weeklyCont'>
+        
+          <Titles title='النمو الأسبوعي' />
+
+          {weeklyData.map((item) => (
+    <GrowthRow
+        key={item.id}
+        day={item.DayAR} // Check if this is "DayAR" or "dayar"
+        users={item.UsersCount}
+        usersPct={item.UsersPct}
+        orders={item.OrdersCount}
+        ordersPct={item.OrdersPct}
+        interact={item.InteractCount}
+        interactPct={item.InteractPct}
+    />
+          ))}
 
       </div>
 

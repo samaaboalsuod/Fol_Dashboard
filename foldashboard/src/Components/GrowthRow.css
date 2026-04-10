@@ -1,0 +1,46 @@
+.growth-row {
+    width: 98%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    align-self: center;
+    padding: 1vw 0;
+    border-bottom: 1px solid #f0f0f0; 
+
+    /* background-color: rgb(132, 80, 11); */
+
+    font-family: var(--arabicFont);
+}
+
+.stat-col {
+    /* background-color: aquamarine; */
+    display: flex;
+    align-items: center;
+    gap: .6vw;
+    /* flex: 1; */
+    justify-content: flex-start; 
+}
+
+.bar-bg {
+    width: 12vw; 
+    height: 8px;
+    background-color: #e1e1e1;
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.8s ease-in-out;
+}
+
+/* Colors from your design */
+.blue { background-color: #75acfe; }
+.green { background-color: #60bd8d; }
+.purple { background-color: #c075f9; }
+
+.val { font-weight: 600; min-width: 30px; text-align: left; }
+.day-name { font-weight: bold; width: 60px; text-align: right; }
+label { color: #888; font-size: 12px; }
