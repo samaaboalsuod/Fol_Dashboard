@@ -1,5 +1,6 @@
 .plantCard{
-    width: 18vw;
+    width: 24%;
+    min-width: 260px;
 
     display: flex;
     flex-direction: column;
@@ -26,8 +27,9 @@
 
 
 .cardImageContainer {
+    position: relative;
     width: 100%;       /* Fill the full width of the card */
-    height: 200px;      /* Set your specific desired height here */
+    height: 25vh;      /* Set your specific desired height here */
     overflow: hidden;   /* Clip the image if it exceeds this box */
     border-radius: 8px 8px 0 0; /* Match card corners (top only) */
 }
@@ -64,3 +66,27 @@
     align-items: center;
     justify-content: space-between;
 }
+
+
+.statusBadge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 4px 12px;
+    border-radius: 20px; /* Gives it the pill shape from your design */
+    font-size: 0.9rem;
+    font-weight: 400;
+    font-family: var(--arabicFont);
+    z-index: 10;
+    backdrop-filter: blur(20px);
+}
+
+/* Background tints using your specific colors with low opacity */
+.bg-green { background-color: rgba(39, 174, 95, 0.585); }
+.bg-orange { background-color: rgba(242, 152, 74, 0.581); }
+.bg-red { background-color: rgba(235, 87, 87, 0.585); }
+
+/* The text colors you provided */
+.green-text2 { color: #cbffe3; }
+.orange-text2 { color: #ffe5cf; }
+.red-text2 { color: #ffcfcf; }

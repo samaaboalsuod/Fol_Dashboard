@@ -21,15 +21,24 @@ const PlantCard = ({ plant }) => {
         // You can add your Supabase delete logic here later
     };
 
+    const getStatusStyles = (status) => {
+    if (status === 'منشور') return 'green-text2 bg-green';
+    if (status === 'مسودة') return 'orange-text2 bg-orange';
+    return 'red-text2 bg-red';
+};
+
     return ( <>
     
     <div className='plantCard'>
 
     <div className="cardImageContainer">
 
+        <span className={`statusBadge ${getStatusStyles(plant.Status)}`}>
+                    {plant.Status}
+        </span>
+
         <img src={plant.Cover_Photo} alt={plant.alt} />
         
-        <span className="statusBadge">{plant.Status}</span>
 
     </div>
 
