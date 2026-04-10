@@ -11,7 +11,7 @@ const SideBarItem = (props) => {
             onClick={props.onClick}
         >
             <img src={props.src} alt="sidebarIcons" className="sideBarIcon"/>
-            <h4 className="sideBarTitle">{props.title}</h4>
+            <h5 className="sideBarTitle">{props.title}</h5>
         </div>
     );
 }

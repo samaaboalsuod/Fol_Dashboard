@@ -52,13 +52,23 @@ h3{
     font-weight: 600;
 }
 
-/* USED FOR SIDE BAR LINKS */
+
 h4{
+    font-family: var(--arabicFont);
+    color: var(--darkText);
+
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* USED FOR SIDE BAR LINKS */
+h5{
     font-family: var(--arabicFont);
 
     font-size: 1.2rem;
     font-weight: 500;
 }
+
 
 p{
     font-family: var(--arabicFont);
@@ -210,6 +220,28 @@ header{
     margin: 0 0 1vw 0;
 
     width: 100%;
+    padding: 1.2vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.2vw;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+    border-radius: 8px;
+}
+
+.part4{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 1vw;
+}
+
+.recentCont{
+    margin: 0 0 1vw 0;
+
+    width: 50%;
     padding: 1.2vw;
 
     display: flex;

@@ -10,6 +10,7 @@
     /* background-color: rgb(132, 80, 11); */
 
     font-family: var(--arabicFont);
+    color: var(--darkText);
 }
 
 .stat-col {
