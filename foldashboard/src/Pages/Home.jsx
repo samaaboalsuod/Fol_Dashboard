@@ -10,10 +10,16 @@ import TimeFilter from '../Components/TimeFilter';
 import StatisticsBigCard from '../Components/StatisticsBigCard';
 import SmallIconCard from '../Components/SmallIconCard';
 import Titles from '../Components/Titles';
-
-import MoneyIcon from '../Assets/moneyIcon.svg'
 import NumbersNofill from '../Components/NumbersNofill';
 import BestSeller from '../Components/BestSeller';
+import AskTotalCard from '../Components/AskTotalCard';
+
+import MoneyIcon from '../Assets/moneyIcon.svg'
+import QuestionIcon from '../Assets/questionIcon.svg'
+import FolIcon from '../Assets/folIcon.svg'
+import ChattIcon from '../Assets/chatIcon.svg'
+import TotalRatio from '../Components/TotalRatio';
+
 
 
 const Home = () => {
@@ -25,6 +31,12 @@ const [activeTime, setActiveTime] = useState('week');
 const [smallCards, setSmallCards] = useState([]);
 const [noFillCards, setNoFillCards] = useState([]);
 const [bestSellers, setBestSellers] = useState([]);
+const [stats, setStats] = useState({
+        totalQuestions: 0,
+        pendingRequests: 0,
+        satisfactionRate: 0,
+        aiQueries: 156 // Keep static or fetch from AI_Logs if created
+    });
 
 useEffect(() => {
     const fetchDashboardData = async () => {
@@ -43,61 +55,66 @@ useEffect(() => {
                 });
             }
 
-            // 2. Fetch the 4 Big Statistics Cards (Rows 1-4)
+            // 2. Fetch DashCards (Statistics)
             const { data: cardData } = await supabase
                 .from('DashCards')
                 .select('*')
-                .order('id', { ascending: true })
-                .limit(4);
+                .order('id', { ascending: true });
 
-            if (cardData) setCards(cardData);
+            if (cardData) {
+                setCards(cardData.slice(0, 4));
+                setSmallCards(cardData.slice(4, 10));
+                setNoFillCards(cardData.slice(10, 14));
+            }
 
-            // 3. Fetch the 6 Small Cards (Rows 5-10)
-            const { data: smallCardData } = await supabase
-                .from('DashCards')
-                .select('*')
-                .order('id', { ascending: true })
-                .range(4, 9);
-
-            if (smallCardData) setSmallCards(smallCardData);
-
-            // 4. Fetch the 4 No-Fill Cards (Rows 11-14)
-            const { data: noFillData } = await supabase
-                .from('DashCards')
-                .select('*')
-                .order('id', { ascending: true })
-                .range(10, 13); 
-
-            if (noFillData) setNoFillCards(noFillData);
-
-            // 5. Fetch Best Sellers from both tables
-            // We use 'NameAR' for both based on your latest table screenshots
-            const [plantsResponse, productsResponse] = await Promise.all([
+            // 3. Fetch Best Sellers & Expert Request Stats in Parallel
+            const [plantsRes, productsRes, totalRes, pendingRes, ratingRes] = await Promise.all([
                 supabase.from('Plant').select('NameAR, Price, TotalSales'),
-                supabase.from('Products').select('NameAR, Price, TotalSales')
+                supabase.from('Products').select('NameAR, Price, TotalSales'),
+                // Total rows in Expert_Requests
+                supabase.from('Expert_Requests').select('*', { count: 'exact', head: true }),
+                // Count rows specifically matching "قيد الانتظار"
+                supabase.from('Expert_Requests').select('*', { count: 'exact', head: true }).eq('StatusAR', 'قيد الانتظار'),
+                // Get ratings that aren't NULL to calculate Satisfaction
+                supabase.from('Expert_Requests').select('Rating').not('Rating', 'is', null)
             ]);
 
-            // Combine the data into one list
+            // --- Process Best Sellers ---
             const allItems = [
-                ...(plantsResponse.data || []).map(item => ({
+                ...(plantsRes.data || []).map(item => ({
                     title: item.NameAR,
                     price: item.Price,
                     pieces: item.TotalSales
                 })),
-                ...(productsResponse.data || []).map(item => ({
+                ...(productsRes.data || []).map(item => ({
                     title: item.NameAR,
                     price: item.Price,
                     pieces: item.TotalSales
                 }))
             ];
 
-            // Sort by TotalSales (highest to lowest) and take the top 3
             const top3 = allItems
                 .filter(item => item.pieces !== null)
                 .sort((a, b) => b.pieces - a.pieces)
                 .slice(0, 3);
 
             setBestSellers(top3);
+
+            // --- Process Expert Request Stats ---
+            // Calculate average only if there are ratings
+            const avgRating = ratingRes.data?.length 
+                ? (ratingRes.data.reduce((acc, curr) => acc + curr.Rating, 0) / ratingRes.data.length)
+                : 0;
+            
+            // Map 1-5 scale to 100%
+            const satisfactionPercent = Math.round((avgRating / 5) * 100);
+
+            setStats({
+                totalQuestions: totalRes.count || 0,
+                pendingRequests: pendingRes.count || 0,
+                satisfactionRate: satisfactionPercent || 0,
+                aiQueries: 156 // Static placeholder per design
+            });
 
         } catch (error) {
             console.error('Dashboard Load Error:', error);
@@ -168,6 +185,7 @@ return (<>
       </div>
 
       <div className='part3'>
+
         <div className='bestCardCont'>
 
           <Titles src={MoneyIcon} title='نظرة عامة على المبيعات' />
@@ -199,6 +217,49 @@ return (<>
           </div>
 
         </div>
+
+        <div className='questionsTotalCont'>
+
+          <Titles src={QuestionIcon} title='الأسئلة القادمة' />
+
+          <AskTotalCard 
+                src={FolIcon}
+                title="استفسارات AI اليوم"
+                value={stats.aiQueries}
+                theme="pink-theme"
+          />
+
+          <AskTotalCard 
+                src={ChattIcon}
+                title="طلبات الخبراء المعلقة"
+                value={stats.pendingRequests}
+                subTitle="عرض الطلبات المعلقة ←"
+                theme="green-theme"
+          />
+
+          <div className='bottom-stats-container'>
+
+            <TotalRatio 
+              title="إجمالي الأسئلة" 
+              value={stats.totalQuestions.toLocaleString()} 
+            />
+
+            <TotalRatio 
+              title="متوسط وقت الرد" 
+              value="2.4s" 
+            />
+
+            <TotalRatio 
+              title="نسبة الرضا" 
+              value={`${stats.satisfactionRate}%`} 
+              className="success-value"
+            />
+          </div>
+
+          
+        </div>
+
+
       </div>
 
 

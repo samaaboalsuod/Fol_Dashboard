@@ -1,0 +1,11 @@
+.ratioData{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.success-value h3 {
+    color: #10B981;
+}

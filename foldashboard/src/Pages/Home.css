@@ -181,3 +181,26 @@ header{
     flex-direction: column;
     gap: 1vw;
 }
+
+.questionsTotalCont{
+    width: 25vw;
+    padding: 1.2vw;
+
+    display: flex;
+    flex-direction: column;
+    
+    gap: 2.36vw;
+
+    background-color: #FFFFFF;
+    border: 1px solid #E7EBE8;
+    border-radius: 8px;
+}
+
+.bottom-stats-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+
+}
+
