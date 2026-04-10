@@ -1,8 +1,7 @@
 .filter-btn {
   padding: .5rem 1rem;
   border-radius: 8px;
-  font-family: inherit;
-  font-size: 0.9vw;
+
   cursor: pointer;
   transition: all 0.2s ease;
   

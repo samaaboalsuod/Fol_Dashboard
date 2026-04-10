@@ -28,6 +28,7 @@ import ChattIcon from '../Assets/chatIcon.svg';
 import ClockIcon from '../Assets/clockIcon.svg';
 import Alert from '../Assets/alertIcon.svg'
 import SpeedIcon from '../Assets/speedIcon.svg'
+import Footer from '../Components/Footer';
 
 import ProductIcon from '../Assets/productIcon.svg'
 import LessonsIcon from '../Assets/lessonsIcon.svg'
@@ -35,7 +36,6 @@ import PagesIcon from '../Assets/pagesIcon.svg'
 import SettiingIcon from '../Assets/settingIcon.svg'
 import UsersIcon from '../Assets/usersIcon.svg'
 import PlusIcon from '../Assets/plusIcon.svg'
-import Footer from '../Components/Footer';
 
 
 

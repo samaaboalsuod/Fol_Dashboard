@@ -7,6 +7,9 @@ import './Plants.css';
 import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
+import MainButton from '../Components/MainButton';
+
+import AddIcon from '../Assets/addIcon.svg'
 
 
 
@@ -18,33 +21,44 @@ const Plants = () => {
     const [pageData, setPageData] = useState({ title: '', subTitle: '' });
     const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+useEffect(() => {
         const fetchPageHeader = async () => {
             try {
-                // Change the .eq('id', 2) to whatever ID corresponds to the "Plants" page in your DB
-                const { data: titleData } = await supabase
+                setLoading(true); // Ensure it starts loading
+                const { data: titleData, error } = await supabase
                     .from('PageTitle')
                     .select('Title, Description')
-                    .eq('id', 2) 
+                    .eq('id', 2) // Double check if Plants is ID 2 in your DB!
                     .single();
+
+                if (error) {
+                    console.error('Supabase Error:', error.message);
+                }
 
                 if (titleData) {
                     setPageData({ 
                         title: titleData.Title, 
                         subTitle: titleData.Description 
                     });
+                } else {
+                    // Fallback title so the page isn't blank if DB fails
+                    setPageData({ title: 'النباتات', subTitle: 'إدارة مخزون النباتات' });
                 }
-            } catch (error) {
-                console.error('Error fetching page header:', error);
+            } catch (err) {
+                console.error('Fetch Error:', err);
             } finally {
-                setLoading(false);
+                setLoading(false); // This MUST run to stop the "loading forever"
             }
         };
 
         fetchPageHeader();
     }, []);
 
-    if (loading) return <div className="loading-screen">جاري التحميل...</div>;
+    const handleOpenModal = () => {
+        console.log("Opening Add Plant Modal...");
+        // Later, you will add logic here to show your pop-up form
+        alert("سيتم فتح نافذة إضافة نبات جديد قريباً!"); 
+    };
 
     
     return ( <>
@@ -66,6 +80,9 @@ const Plants = () => {
                 <div className='topSec'>
 
                     <PageTitle title={pageData.title} subTitle={pageData.subTitle} />
+
+                    <MainButton label="إضافة نبات جديد" src={AddIcon} onClick={handleOpenModal} disabled={loading} />
+
 
                 </div>
 
