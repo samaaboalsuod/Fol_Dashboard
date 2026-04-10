@@ -1,5 +1,5 @@
 .searchBar{
-    width: 30vw;
+    width: 50vw;
     padding: .6vw 1vw;
 
     background-color: var(--inputBg);
@@ -10,10 +10,11 @@
 
     border-radius: 8px;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #082f196f;
 }
 input{
     all: unset;
     font-family: var(--arabicFont);
+    width: 100%;
 }

@@ -1,0 +1,49 @@
+.secondButton{
+  padding: .7rem 1.3rem;
+  border-radius: 8px;
+  border: 1px solid var(--stroke);
+  background-color: #ffffff;
+
+  cursor: pointer;
+
+  font-size: 1rem;
+  color: var(--darkText);
+  font-family: var(--arabicFont);
+
+  display: flex;
+  align-items: center;
+  gap: .4vw;
+
+  transition: all 0.2s ease;
+}
+
+
+/* --- HOVER STATE --- */
+.secondButton:hover:not(:disabled) {
+  background-color: #f9fafb; /* Very light gray */
+  border-color: var(--ctaActive); /* Subtle highlight using your brand color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* --- ACTIVE/CLICK STATE --- */
+.secondButton:active:not(:disabled) {
+  background-color: #f0f2f1;
+  transform: scale(0.98); /* Slight press-in effect */
+}
+
+/* --- DISABLED STATE --- */
+.secondButton:disabled {
+  background-color: #f5f5f5;
+  border-color: #e0e0e0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.secondButton:disabled p {
+  color: #a0a0a0; /* Faded text */
+}
+
+.secondButton:disabled img {
+  filter: grayscale(1);
+  opacity: 0.4;
+}

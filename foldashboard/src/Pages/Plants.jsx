@@ -8,9 +8,11 @@ import Nav from '../Components/Nav';
 import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
 import MainButton from '../Components/MainButton';
+import SearchBar from '../Components/SearchBar';
+import SecondaryButton from '../Components/SecondaryButton';
 
 import AddIcon from '../Assets/addIcon.svg'
-
+import FilterIcon from '../Assets/filterIcon.svg'
 
 
 
@@ -84,6 +86,11 @@ useEffect(() => {
                     <MainButton label="إضافة نبات جديد" src={AddIcon} onClick={handleOpenModal} disabled={loading} />
 
 
+                </div>
+
+                <div className='searchFilter'>
+                    <SearchBar placeholder="البحث بالاسم العربي، الإنجليزي، أو الاسم العلمي..." />
+                    <SecondaryButton label="فلاتر متقدمة" src={FilterIcon} />
                 </div>
 
 
