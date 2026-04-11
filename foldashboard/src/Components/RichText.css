@@ -10,7 +10,7 @@
     all: unset;
     font-family: var(--arabicFont);
     width: 100%;
-    padding: .6vw 1vw 3.6vw 0;
+    padding: .6vw 1vw 2.6vw 0;
 
     box-sizing: border-box;
 
@@ -23,23 +23,23 @@
 .richText h5{
     color: var( --darkText);
     font-size: 1.2rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 
 .richText .quill {
-    background-color: var(--inputBg);
-    border-radius: 8px;
-    overflow: hidden; /* Keeps borders clean */
-    border: none;
+    border: none !important;
+    background-color: var(--inputBg); /* Matches your other inputs */
+    border-radius: 12px;
+    padding: 0.5vw;
 }
 
 /* Styling the Toolbar */
 .richText .ql-toolbar.ql-snow {
     border: none !important;
-    background-color: rgba(0, 0, 0, 0.02); /* Subtle separation */
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
-    padding: 8px;
+    border-bottom: 1px solid rgba(0,0,0,0.05) !important;
+    margin: 0 10px;
+    padding-bottom: 10px;
 }
 
 /* Styling the Editing Area (The "Input" feel) */
@@ -49,8 +49,9 @@
 }
 
 .richText .ql-editor {
-    min-height: 150px;
-    padding: 1vw;
+    /* min-height: 150px; */
+    /* padding: 1vw; */
+    padding: .6vw 1vw 2.6vw 0;
     font-size: 1.2rem;
     color: var(--darkText);
     line-height: 1.6;
@@ -61,6 +62,4 @@
 .richText .ql-editor.ql-blank::before {
     font-style: normal;
     color: #999;
-    right: 1vw;
-    left: auto;
 }

@@ -109,7 +109,21 @@ useEffect(() => {
 
                                 <div className='editoeCol'>
                                     <ShortTextInput title="اسم النبات" placeholder="اكتب اسم النبات" />
-                                    <RichText title="وصف النبات " placeholder="اكتب وصف النبات" />
+                                    <RichText title="وصف النبات " placeholder="اكتب وصف النبات" isRich={true} />
+                                    <RichText title="الفوائد والاستخدامات" placeholder="اكتب فوائد واستخدامات النبات" isRich={true} />
+                                    <RichText title="تعليمات العناية" placeholder="اكتب تعليمات العناية" isRich={true} />
+                                </div>
+
+                        </div>
+
+                        <div className='wideCard'>
+
+                                <Titles title='ضبط محركات البحث  SEO optimization' />
+
+                                <div className='editoeCol'>
+                                    <ShortTextInput title="اسم الصفحة  Slug Name  " placeholder="slug" />
+                                    <ShortTextInput title="عنوان الصفحة  Title   " placeholder="title" />
+                                    <RichText title="Meta Description" placeholder="اكتب تعليمات العناية" isRich={false} />
                                 </div>
 
                         </div>
