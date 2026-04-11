@@ -193,6 +193,38 @@ useEffect(() => {
                                 </div>
                         </div>
 
+                        <div className='wideCard'>
+
+                                <Titles title='السقي والتسميد' />
+                                
+                                <div className='editoeCol'>
+
+                                    <div className='inputRow'>
+                                      <DropDown title="معدل السقي"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="نوع السماد"  parentId={56}  onChange={(val) => console.log("Selected Care:", val)} />                                      
+                                    </div>
+
+                                    <div className='inputRow'>
+                                      <DropDown title="معدل التسميد"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="موسم التسميد"  parentId={63}  onChange={(val) => console.log("Selected Care:", val)} />                                      
+                                    </div>
+
+                                </div>
+                        </div>
+
+                        <div className='wideCard'>
+
+                                <Titles title='التنظيف' />
+                                
+                                <div className='editoeCol'>
+
+                                      <DropDown title="معدل التنظيف"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <RichText title="طريقة التنظيف" placeholder="اكتب طريقة التنظيف " isRich={true} />
+
+
+                                </div>
+                        </div>
+
                     </div>
 
                     <div className='narrowSec'></div>
