@@ -14,6 +14,7 @@ import SaveIcon from '../Assets/saveIcon.svg'
 import EyeIcon from '../Assets/eyeIcon.svg'
 import Titles from '../Components/Titles';
 import ShortTextInput from '../Components/ShortTextInput';
+import RichText from './../Components/RichText';
 
 
 const AddPlant = () => {
@@ -108,6 +109,7 @@ useEffect(() => {
 
                                 <div className='editoeCol'>
                                     <ShortTextInput title="اسم النبات" placeholder="اكتب اسم النبات" />
+                                    <RichText title="وصف النبات " placeholder="اكتب وصف النبات" />
                                 </div>
 
                         </div>

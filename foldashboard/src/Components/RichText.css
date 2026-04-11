@@ -1,0 +1,66 @@
+.richText{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
+}
+
+.richText input{
+    
+    all: unset;
+    font-family: var(--arabicFont);
+    width: 100%;
+    padding: .6vw 1vw 3.6vw 0;
+
+    box-sizing: border-box;
+
+    background-color: var(--inputBg);
+    border-radius: 8px;
+
+    font-size: 1.2rem;
+}
+
+.richText h5{
+    color: var( --darkText);
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+
+.richText .quill {
+    background-color: var(--inputBg);
+    border-radius: 8px;
+    overflow: hidden; /* Keeps borders clean */
+    border: none;
+}
+
+/* Styling the Toolbar */
+.richText .ql-toolbar.ql-snow {
+    border: none !important;
+    background-color: rgba(0, 0, 0, 0.02); /* Subtle separation */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05) !important;
+    padding: 8px;
+}
+
+/* Styling the Editing Area (The "Input" feel) */
+.richText .ql-container.ql-snow {
+    border: none !important;
+    font-family: var(--arabicFont) !important;
+}
+
+.richText .ql-editor {
+    min-height: 150px;
+    padding: 1vw;
+    font-size: 1.2rem;
+    color: var(--darkText);
+    line-height: 1.6;
+    text-align: right; /* Essential for Arabic descriptions */
+}
+
+/* Custom Placeholder styling */
+.richText .ql-editor.ql-blank::before {
+    font-style: normal;
+    color: #999;
+    right: 1vw;
+    left: auto;
+}
