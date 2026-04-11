@@ -12,6 +12,8 @@ import Footer from '../Components/Footer';
 
 import SaveIcon from '../Assets/saveIcon.svg'
 import EyeIcon from '../Assets/eyeIcon.svg'
+import Titles from '../Components/Titles';
+import ShortTextInput from '../Components/ShortTextInput';
 
 
 const AddPlant = () => {
@@ -93,6 +95,26 @@ useEffect(() => {
                     </div>
 
 
+
+                </div>
+
+                <div className='mainSplit'>
+
+                    <div className='wideSec'>
+
+                        <div className='wideCard'>
+
+                                <Titles title='المعلومات الأساسية' />
+
+                                <div className='editoeCol'>
+                                    <ShortTextInput title="اسم النبات" placeholder="اكتب اسم النبات" />
+                                </div>
+
+                        </div>
+
+                    </div>
+
+                    <div className='narrowSec'></div>
 
                 </div>
 
