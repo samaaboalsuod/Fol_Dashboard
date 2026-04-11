@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './Pages/Home';
 import Plants from './Pages/Plants';
+import AddPlant from './Pages/AddPlant';
 
 
 const RoutingApp = () => {
@@ -15,6 +16,7 @@ const RoutingApp = () => {
 
                 <Route path='/' element={<Home />} />
                 <Route path='/Plants' element={<Plants />} />
+                <Route path='/AddPlant' element={<AddPlant />} />
 
 
             </Routes>
