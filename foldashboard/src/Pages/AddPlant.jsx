@@ -140,8 +140,7 @@ useEffect(() => {
                                 </div>
 
                         </div>
-
-                        
+                       
                         <div className='wideCard'>
 
                                 <Titles title='المواصفات والخصائص' />
@@ -176,6 +175,22 @@ useEffect(() => {
 
                                 </div>
 
+                        </div>
+
+                        <div className='wideCard'>
+
+                                <Titles title='متطلبات الإضاءة' />
+                                
+                                <div className='editoeCol'>
+
+                                    <div className='inputRow'>
+                                      <DropDown title="نوع الإضاءة"  parentId={49}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="شدة الإضاءة"  parentId={4}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <ShortTextInput title="ساعات الإضاءة يوميًا" placeholder="اكتب عدد الساعات" />
+                                      
+                                    </div>
+
+                                </div>
                         </div>
 
                     </div>
