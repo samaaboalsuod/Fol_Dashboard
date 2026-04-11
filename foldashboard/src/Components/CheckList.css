@@ -1,0 +1,50 @@
+.checklist-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
+    direction: rtl;
+}
+
+.checklist-title {
+    color: var( --darkText);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.checklist-wrapper {
+    background-color: var(--inputBg); 
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.checklist-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Aligns to the right because of direction: rtl */
+    gap: 15px; /* Space between text and box */
+    cursor: pointer;
+    width: 100%;
+    direction: rtl;
+}
+
+.checklist-text {
+    font-family: var(--arabicFont);
+    font-size: 1.05rem;
+    color: #444;
+}
+
+.custom-checkbox {
+    /* Reset styles to ensure visibility */
+    appearance: auto; 
+    -webkit-appearance: checkbox;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #2d5a27;
+    margin: 0;
+    flex-shrink: 0; /* Prevents box from being squashed */
+}

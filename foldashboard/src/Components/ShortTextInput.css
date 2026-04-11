@@ -9,14 +9,14 @@
     all: unset;
     font-family: var(--arabicFont);
     width: 100%;
-    padding: .6vw 1vw .6vw 0;
+    padding: .7vw 1vw .7vw 0;
 
     box-sizing: border-box;
 
     background-color: var(--inputBg);
     border-radius: 8px;
 
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .shortTextCont h5{

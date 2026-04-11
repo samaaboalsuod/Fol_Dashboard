@@ -1,0 +1,35 @@
+.dropDoenCont {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .5vw;
+}
+
+.dropDoenCont h5 {
+    color: var( --darkText);
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.fol-select-input {
+    /* Matching your input style */
+    font-family: var(--arabicFont);
+    width: 100%;
+    padding: .7vw 1vw; /* Adjusted padding for better click area */
+    box-sizing: border-box;
+    background-color: var(--inputBg);
+    border-radius: 8px;
+    font-size: 1rem;
+    color: var(--darkText);
+    
+    /* Cleaning up default select appearance */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    appearance: auto; /* Keeps the native arrow for accessibility */
+}
+
+/* Matching your placeholder feel */
+.fol-select-input option:first-child {
+    color: #999;
+}

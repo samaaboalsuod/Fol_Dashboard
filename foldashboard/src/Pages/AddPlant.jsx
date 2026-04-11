@@ -15,6 +15,8 @@ import EyeIcon from '../Assets/eyeIcon.svg'
 import Titles from '../Components/Titles';
 import ShortTextInput from '../Components/ShortTextInput';
 import RichText from './../Components/RichText';
+import DropDown from './../Components/DropDown';
+import CheckList from './../Components/CheckList';
 
 
 const AddPlant = () => {
@@ -65,6 +67,17 @@ useEffect(() => {
         console.log("Opening Add Plant Modal...");
         // Later, you will add logic here to show your pop-up form
         alert("سيتم فتح نافذة إضافة نبات جديد قريباً!"); 
+    };
+
+    const [plantData, setPlantData] = useState({
+        name: '',
+        lightingId: null,
+        purposeIds: [], // This will store the array of IDs from the checklist
+    });
+
+    const handlePurposeChange = (selectedIds) => {
+        setPlantData({ ...plantData, purposeIds: selectedIds });
+        console.log("Current selected purposes:", selectedIds);
     };
 
 
@@ -124,6 +137,43 @@ useEffect(() => {
                                     <ShortTextInput title="اسم الصفحة  Slug Name  " placeholder="slug" />
                                     <ShortTextInput title="عنوان الصفحة  Title   " placeholder="title" />
                                     <RichText title="Meta Description" placeholder="اكتب تعليمات العناية" isRich={false} />
+                                </div>
+
+                        </div>
+
+                        
+                        <div className='wideCard'>
+
+                                <Titles title='المواصفات والخصائص' />
+
+                                <div className='editoeCol'>
+
+                                    <div className='inputRow'>
+                                      <ShortTextInput title="الاسم العلمي" placeholder="الاسم العلمي" />
+                                      <ShortTextInput title="السعر (جنيه مصري)" placeholder="السعر (جنيه مصري)" />
+                                    </div>
+
+                                    <div className='inputRow'>
+                                      <DropDown title="الفئة"  parentId={15}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown  title="مستوى الصعوبة"  parentId={5}  onChange={(val) => console.log("Selected Lighting:", val)} />
+                                    </div>
+
+                                    <div className='inputRow'>
+                                      <DropDown title="المساحة"  parentId={9}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="البيئة"  parentId={12}  onChange={(val) => console.log("Selected Care:", val)} />
+                                    </div>
+
+                                    <div className='inputRow'>
+                                      <ShortTextInput title="الارتفاع الأدنى" placeholder="الارتفاع الأدنى" />
+                                      <ShortTextInput title="الارتفاع الأقصى" placeholder="الارتفاع الأقصى" />
+                                    </div>
+
+                                      <CheckList title="الهدف من النبتة" parentId={11} onChange={(val) => console.log("Goals selected:", val)} />
+                                      <CheckList  title="أفضل مكان للموضع"  parentId={13}  onChange={(selectedRooms) => setPlantData({ ...plantData, roomIds: selectedRooms })} />
+
+
+
+
                                 </div>
 
                         </div>
