@@ -12,6 +12,8 @@ import Footer from '../Components/Footer';
 
 import SaveIcon from '../Assets/saveIcon.svg'
 import EyeIcon from '../Assets/eyeIcon.svg'
+import UploadIcon from '../Assets/uploadIcon.svg'
+import QrCodeIcon from '../Assets/qrCodeIcon.svg'
 import Titles from '../Components/Titles';
 import ShortTextInput from '../Components/ShortTextInput';
 import RichText from './../Components/RichText';
@@ -221,6 +223,24 @@ useEffect(() => {
                                       <DropDown title="معدل التنظيف"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
                                       <RichText title="طريقة التنظيف" placeholder="اكتب طريقة التنظيف " isRich={true} />
 
+                                </div>
+                        </div>
+
+                        <div className='wideCard'>
+
+                                <Titles title='النموذج ثلاثي الأبعاد والواقع المعزز' />
+                                
+                                <div className='editoeCol'>
+
+                                    <div className='textButtonRow'>
+                                       <ShortTextInput title="رابط النموذج ثلاثي الأبعاد (.glb أو .gltf)" placeholder="3D model link" />
+                                       <SecondaryButton label="رفع" src={UploadIcon} />
+                                    </div>
+
+                                    <div className='textButtonRow'>
+                                       <ShortTextInput title="رمز QR للواقع المعزز" placeholder="AR link" />
+                                       <SecondaryButton label="توليد QR" src={QrCodeIcon} />
+                                    </div>
 
                                 </div>
                         </div>

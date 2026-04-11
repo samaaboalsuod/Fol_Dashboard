@@ -1,5 +1,7 @@
 .secondButton{
   padding: .7rem 1.3rem;
+  height: fit-content;
+  white-space: nowrap;
   border-radius: 8px;
   border: 1px solid var(--stroke);
   background-color: #ffffff;
