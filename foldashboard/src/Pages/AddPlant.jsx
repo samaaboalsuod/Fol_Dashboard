@@ -8,17 +8,21 @@ import SideBar from '../Components/SideBar';
 import PageTitle from '../Components/PageTitle';
 import MainButton from '../Components/MainButton';
 import SecondaryButton from '../Components/SecondaryButton';
+import Titles from '../Components/Titles';
+import ShortTextInput from '../Components/ShortTextInput';
+import RichText from './../Components/RichText';
+import DropDown from './../Components/DropDown';
+import CheckList from './../Components/CheckList';
 import Footer from '../Components/Footer';
 
 import SaveIcon from '../Assets/saveIcon.svg'
 import EyeIcon from '../Assets/eyeIcon.svg'
 import UploadIcon from '../Assets/uploadIcon.svg'
 import QrCodeIcon from '../Assets/qrCodeIcon.svg'
-import Titles from '../Components/Titles';
-import ShortTextInput from '../Components/ShortTextInput';
-import RichText from './../Components/RichText';
-import DropDown from './../Components/DropDown';
-import CheckList from './../Components/CheckList';
+import AddIcon from '../Assets/addIcon.svg'
+import StepCard from './../Components/StepCard';
+
+
 
 
 const AddPlant = () => {
@@ -242,6 +246,22 @@ useEffect(() => {
                                        <SecondaryButton label="توليد QR" src={QrCodeIcon} />
                                     </div>
 
+                                </div>
+
+                        </div>
+
+                        <div className='wideCard'>
+
+                                <div className='buttonTitleRow'>
+                                   <Titles title='خطوات الزراعة' />
+
+                                    <MainButton label="إضافة خطوة " src={AddIcon} onClick={handleOpenModal} disabled={loading} />
+                                </div>
+                                
+                                <div className='editoeCol'>
+                                    <StepCard title="خطوة 1" />
+                                    <StepCard title="خطوة 2" />
+                                    <StepCard title="خطوة 3" />
                                 </div>
                         </div>
 
