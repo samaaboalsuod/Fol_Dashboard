@@ -1,0 +1,19 @@
+.uploadCard{
+    width: 100%;
+    padding: 4vw 1.2vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: .4vw;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #FFFFFF;
+    border: 1px solid var(--stroke);
+    border-radius: 8px;
+
+    cursor: pointer;
+}
+.uploadCard img{
+    width: 3.5rem;
+}

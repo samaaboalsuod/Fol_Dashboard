@@ -21,6 +21,7 @@ import UploadIcon from '../Assets/uploadIcon.svg'
 import QrCodeIcon from '../Assets/qrCodeIcon.svg'
 import AddIcon from '../Assets/addIcon.svg'
 import StepCard from './../Components/StepCard';
+import UploadCard from '../Components/UploadCard';
 
 
 
@@ -263,6 +264,15 @@ useEffect(() => {
                                     <StepCard title="خطوة 2" />
                                     <StepCard title="خطوة 3" />
                                 </div>
+                        </div>
+
+                        <div className='wideCard'>
+                                <Titles title='صور النبات' />
+                                
+                                <div className='editoeCol'>
+                                    <UploadCard />
+                                </div>
+
                         </div>
 
                     </div>
