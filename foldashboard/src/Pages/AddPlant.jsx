@@ -22,11 +22,13 @@ import QrCodeIcon from '../Assets/qrCodeIcon.svg'
 import AddIcon from '../Assets/addIcon.svg'
 import StepCard from './../Components/StepCard';
 import UploadCard from '../Components/UploadCard';
+import StatusDropDown from './../Components/StatusDropDown';
+import DeleteButton from '../Components/DeleteButton';
 
 
 
 
-const AddPlant = () => {
+const AddPlant = ({ plant }) => {
 
     const [pageData, setPageData] = useState({ title: '', subTitle: '' });
     const [loading, setLoading] = useState(true);
@@ -85,6 +87,11 @@ useEffect(() => {
     const handlePurposeChange = (selectedIds) => {
         setPlantData({ ...plantData, purposeIds: selectedIds });
         console.log("Current selected purposes:", selectedIds);
+    };
+
+    const handleDelete = () => {
+        console.log(`Deleting plant: ${plant.NameAR}`);
+        // You can add your Supabase delete logic here later
     };
 
 
@@ -277,7 +284,11 @@ useEffect(() => {
 
                     </div>
 
-                    <div className='narrowSec'></div>
+                    <div className='narrowSec'>
+                        <StatusDropDown value={plantData.status}  onChange={(newStatus) => setPlantData({ ...plantData, status: newStatus })} />
+                        <DeleteButton onClick={handleDelete} />
+
+                    </div>
 
                 </div>
 

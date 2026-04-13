@@ -1,0 +1,42 @@
+.status-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    direction: rtl; /* Important for Arabic layout */
+}
+
+
+.status-wrapper {
+    position: relative;
+    background-color: var(--inputBg);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.status-select {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    background: transparent;
+    font-family: var(--arabicFont);
+    font-size: 1rem;
+    color: var(--darkText);
+    cursor: pointer;
+    appearance: none;
+    outline: none;
+}
+
+/* Custom Arrow on the Left */
+.dropdown-arrow {
+    position: absolute;
+    left: 15px; 
+    width: 12px;
+    height: 12px;
+    border-left: 2px solid #2d5a27;
+    border-bottom: 2px solid #2d5a27;
+    background-color: var(--inputBg);
+    transform: rotate(-45deg);
+    pointer-events: none; /* Allows clicks to pass to the select */
+}
