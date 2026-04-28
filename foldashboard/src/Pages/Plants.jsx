@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { supabase } from "../Supabase";
+
 
 import './Plants.css';
 
@@ -22,7 +24,9 @@ import Footer from '../Components/Footer';
 
 const Plants = () => {
 
+    
 
+const navigate = useNavigate();
     const [pageData, setPageData] = useState({ title: '', subTitle: '' });
     const [loading, setLoading] = useState(true);
     const [plants, setPlants] = useState([]);
@@ -98,6 +102,11 @@ useEffect(() => {
         alert("سيتم فتح نافذة إضافة نبات جديد قريباً!"); 
     };
 
+    const handleAddPlantClick = () => {
+        // You can keep logic here (like analytics) or just navigate
+        navigate('/AddPlant'); // 3. Use the exact path from your RoutingApp
+    };
+
     
     return ( <>
     
@@ -119,7 +128,13 @@ useEffect(() => {
 
                     <PageTitle title={pageData.title} subTitle={pageData.subTitle} />
 
-                    <MainButton label="إضافة نبات جديد" src={AddIcon} onClick={handleOpenModal} disabled={loading} />
+                    {/* <MainButton label="إضافة نبات جديد" src={AddIcon} onClick={handleOpenModal} disabled={loading} /> */}
+                    <MainButton 
+            label="إضافة نبات جديد" 
+            src={AddIcon} 
+            onClick={handleAddPlantClick} // Trigger the navigation function
+            disabled={loading} 
+        />
 
 
                 </div>

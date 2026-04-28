@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link
 import './SideBar.css'
 
 import SideBarItem from './SideBarItem';
@@ -26,16 +27,22 @@ const SideBar = ({ activeTitle }) => {
             <img src={Logo} alt="logo" className='logo' />
 
             <div className='sideItemsCont'>
-                <SideBarItem 
-                    src={DashIcon} 
-                    title="لوحة التحكم" 
-                    isActive={activeTitle === "لوحة التحكم"} 
-                />
-                <SideBarItem 
-                    src={PlantIcon} 
-                    title="النباتات" 
-                    isActive={activeTitle === "النباتات"} 
-                />
+                <Link to="/" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                    <SideBarItem 
+                        src={DashIcon} 
+                        title="لوحة التحكم" 
+                        isActive={activeTitle === "لوحة التحكم"} 
+                    />
+                </Link>
+
+                {/* Link to Plants.jsx - Note the capital 'P' to match your routing */}
+                <Link to="/Plants" style={{ textDecoration: 'none', color: 'inherit', width: '100%' }}>
+                    <SideBarItem 
+                        src={PlantIcon} 
+                        title="النباتات" 
+                        isActive={activeTitle === "النباتات"} 
+                    />
+                </Link>
                 <SideBarItem 
                     src={PagesIcon} 
                     title="الصفحات" 
