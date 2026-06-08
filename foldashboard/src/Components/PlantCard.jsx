@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { supabase } from '../Supabase';
 import './PlantCard.css';
 
 import DetailRow from './DetailRow';
@@ -7,7 +8,7 @@ import DeleteButton from '../Components/DeleteButton';
 
 import EditIcon from '../Assets/editIcon.svg'
 
-const PlantCard = ({ plant }) => {
+const PlantCard = ({ plant, onDelete }) => {
     if (!plant) return null;
 
     const handleOpenModal = () => {
@@ -16,9 +17,24 @@ const PlantCard = ({ plant }) => {
         alert("سيتم فتح نافذة إضافة نبات جديد قريباً!"); 
     };
 
-    const handleDelete = () => {
-        console.log(`Deleting plant: ${plant.NameAR}`);
-        // You can add your Supabase delete logic here later
+    const handleDelete = async () => {
+        if (window.confirm(`هل أنت متأكد أنك تريد حذف ${plant.NameAR}؟`)) {
+            try {
+                const { error } = await supabase
+                    .from('Plant')
+                    .delete()
+                    .eq('id', plant.id);
+
+                if (error) {
+                    alert("حدث خطأ أثناء الحذف: " + error.message);
+                } else {
+                    if (onDelete) onDelete(plant.id);
+                }
+            } catch (err) {
+                console.error("Unexpected delete error:", err);
+                alert("حدث خطأ غير متوقع!");
+            }
+        }
     };
 
     const getStatusStyles = (status) => {

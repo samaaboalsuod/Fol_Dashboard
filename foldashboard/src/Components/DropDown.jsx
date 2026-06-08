@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from "../Supabase";
 import './DropDown.css';
 
-const DropDown = ({ title, parentId, onChange }) => {
+const DropDown = ({ title, parentId, value, onChange }) => {
     const [options, setOptions] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -29,7 +29,8 @@ const DropDown = ({ title, parentId, onChange }) => {
             <h5>{title}</h5>
             <select 
                 className="fol-select-input"
-                onChange={(e) => onChange(e.target.value)}
+                value={value || ''}
+                onChange={(e) => onChange(e.target.value, e.target.options[e.target.selectedIndex].text)}
                 disabled={loading}
             >
                 <option value="">{loading ? 'جاري التحميل...' : 'اختر من القائمة'}</option>

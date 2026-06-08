@@ -18,8 +18,8 @@ const StatusDropDown = ({ value, onChange }) => {
             <div className="status-wrapper">
                 <select 
                     className="status-select" 
-                    value={value} 
-                    onChange={(e) => onChange(e.target.value)}
+                    value={value || ''} 
+                    onChange={(e) => onChange(e.target.options[e.target.selectedIndex].text)}
                 >
                     {statusOptions.map((option) => (
                         <option key={option.id} value={option.id}>

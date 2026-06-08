@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactQuill from 'react-quill-new'; 
 import 'react-quill-new/dist/quill.snow.css'; 
 import './RichText.css';
 
-const RichText = (props) => {
-
-    const [content, setContent] = useState('');
+const RichText = ({ title, placeholder, isRich, value, onChange }) => {
     const modules = {
     toolbar: [
         [{ 'header': [2, 3, 4, false] }],
@@ -24,23 +22,25 @@ const RichText = (props) => {
 
     return ( 
         <div className='richText'>
-            <h5>{props.title}</h5>
+            <h5>{title}</h5>
             
-            {props.isRich ? (
+            {isRich ? (
                 /* 1. Show Professional Editor */
                 <ReactQuill 
                     theme="snow" 
-                    value={content} 
-                    onChange={setContent} 
+                    value={value || ''} 
+                    onChange={onChange} 
                     modules={modules}
-                    placeholder={props.placeholder}
+                    placeholder={placeholder}
                 />
             ) : (
                 /* 2. Show Simple Input (Matching your style) */
                 <input 
                     type="text" 
-                    placeholder={props.placeholder} 
+                    placeholder={placeholder} 
                     className="simple-input"
+                    value={value || ''}
+                    onChange={onChange}
                 />
             )}
         </div>

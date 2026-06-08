@@ -73,15 +73,91 @@ useEffect(() => {
 }, []); // Close useEffect
 
     const handleOpenModal = () => {
-        console.log("Opening Add Plant Modal...");
-        // Later, you will add logic here to show your pop-up form
-        alert("سيتم فتح نافذة إضافة نبات جديد قريباً!"); 
+        alert("سيتم فتح النافذة قريباً!"); 
+    };
+
+    const handleSave = async () => {
+        console.log("Plant Data ready to be saved:", plantData);
+
+        try {
+            setLoading(true);
+
+            // 1. Fetch the maximum ID currently in the table to fix the sequence issue
+            const { data: maxIdData, error: idError } = await supabase
+                .from('Plant')
+                .select('id')
+                .order('id', { ascending: false })
+                .limit(1);
+
+            let nextId = 1;
+            if (maxIdData && maxIdData.length > 0) {
+                nextId = maxIdData[0].id + 1;
+            }
+
+            // Prepare data matching ONLY the Supabase columns
+            const insertData = {
+                id: nextId, // Explicitly pass the ID
+                NameAR: plantData.NameAR || null,
+                NameEN: plantData.NameEN || null,
+                DescriptionAR: plantData.DescriptionAR || null,
+                DescriptionEN: plantData.DescriptionEN || null,
+                Cover_Photo: plantData.Cover_Photo || null,
+                alt: plantData.alt || null,
+                Price: plantData.Price === '' ? null : Number(plantData.Price),
+                Category: plantData.Category || null,
+                Difficulty: plantData.Difficulty || null,
+                Lighting: plantData.Lighting || null,
+                Watering: plantData.Watering || null,
+                Height: plantData.Height || null,
+                Status: plantData.Status || 'مسودة',
+                '3DModel': plantData['3DModel'] || null,
+                Common_Names: plantData.Common_Names || null,
+                Care_Clean_Details: plantData.Care_Clean_Details || null,
+                
+                // Safe defaults for other known columns
+                TotalSales: 0, 
+                IsRare: false,
+                PetSafe: false,
+                AirPurifying: false
+            };
+
+            const { data, error } = await supabase
+                .from('Plant')
+                .insert([insertData]);
+
+            if (error) {
+                console.error("Error inserting plant:", error);
+                alert("حدث خطأ أثناء إضافة النبات: " + error.message);
+            } else {
+                alert("تم إضافة النبات بنجاح إلى جدول Plant!");
+            }
+        } catch (err) {
+            console.error("Unexpected error:", err);
+            alert("حدث خطأ غير متوقع!");
+        } finally {
+            setLoading(false);
+        }
     };
 
     const [plantData, setPlantData] = useState({
-        name: '',
-        lightingId: null,
-        purposeIds: [], // This will store the array of IDs from the checklist
+        NameAR: '',
+        NameEN: '',
+        DescriptionAR: '',
+        DescriptionEN: '',
+        Cover_Photo: '',
+        alt: '',
+        Price: '',
+        Category: '',
+        Difficulty: '',
+        Lighting: '',
+        Watering: '',
+        Height: '',
+        Status: 'مسودة',
+        '3DModel': '',
+        Common_Names: '',
+        Care_Clean_Details: '',
+        purposeIds: [],
+        roomIds: []
     });
 
     const handlePurposeChange = (selectedIds) => {
@@ -118,7 +194,7 @@ useEffect(() => {
                     <div className='titleButtonRow'>
 
                         <SecondaryButton label="معاينة" src={EyeIcon} />
-                        <MainButton label="حفظ" src={SaveIcon} onClick={handleOpenModal} />
+                        <MainButton label="حفظ" src={SaveIcon} onClick={handleSave} disabled={loading} />
 
                     </div>
 
@@ -135,8 +211,8 @@ useEffect(() => {
                                 <Titles title='المعلومات الأساسية' />
 
                                 <div className='editoeCol'>
-                                    <ShortTextInput title="اسم النبات" placeholder="اكتب اسم النبات" />
-                                    <RichText title="وصف النبات " placeholder="اكتب وصف النبات" isRich={true} />
+                                    <ShortTextInput title="اسم النبات" placeholder="اكتب اسم النبات" value={plantData.NameAR} onChange={(e) => setPlantData({ ...plantData, NameAR: e.target.value })} />
+                                    <RichText title="وصف النبات " placeholder="اكتب وصف النبات" isRich={true} value={plantData.DescriptionAR} onChange={(val) => setPlantData({ ...plantData, DescriptionAR: val })} />
                                     <RichText title="الفوائد والاستخدامات" placeholder="اكتب فوائد واستخدامات النبات" isRich={true} />
                                     <RichText title="تعليمات العناية" placeholder="اكتب تعليمات العناية" isRich={true} />
                                 </div>
@@ -148,9 +224,9 @@ useEffect(() => {
                                 <Titles title='ضبط محركات البحث  SEO optimization' />
 
                                 <div className='editoeCol'>
-                                    <ShortTextInput title="اسم الصفحة  Slug Name  " placeholder="slug" />
+                                    <ShortTextInput title="اسم الصفحة  Slug Name  " placeholder="slug" value={plantData.NameEN} onChange={(e) => setPlantData({ ...plantData, NameEN: e.target.value })} />
                                     <ShortTextInput title="عنوان الصفحة  Title   " placeholder="title" />
-                                    <RichText title="Meta Description" placeholder="اكتب تعليمات العناية" isRich={false} />
+                                    <RichText title="Meta Description" placeholder="اكتب تعليمات العناية" isRich={false} value={plantData.DescriptionEN} onChange={(e) => setPlantData({ ...plantData, DescriptionEN: e.target.value })} />
                                 </div>
 
                         </div>
@@ -162,13 +238,13 @@ useEffect(() => {
                                 <div className='editoeCol'>
 
                                     <div className='inputRow'>
-                                      <ShortTextInput title="الاسم العلمي" placeholder="الاسم العلمي" />
-                                      <ShortTextInput title="السعر (جنيه مصري)" placeholder="السعر (جنيه مصري)" />
+                                      <ShortTextInput title="الاسم العلمي" placeholder="الاسم العلمي" value={plantData.Common_Names} onChange={(e) => setPlantData({ ...plantData, Common_Names: e.target.value })} />
+                                      <ShortTextInput title="السعر (جنيه مصري)" placeholder="السعر (جنيه مصري)" value={plantData.Price} onChange={(e) => setPlantData({ ...plantData, Price: e.target.value })} />
                                     </div>
 
                                     <div className='inputRow'>
-                                      <DropDown title="الفئة"  parentId={15}  onChange={(val) => console.log("Selected Care:", val)} />
-                                      <DropDown  title="مستوى الصعوبة"  parentId={5}  onChange={(val) => console.log("Selected Lighting:", val)} />
+                                      <DropDown title="الفئة"  parentId={15} value={plantData.Category} onChange={(val, text) => setPlantData({ ...plantData, Category: text })} />
+                                      <DropDown  title="مستوى الصعوبة"  parentId={5} value={plantData.Difficulty} onChange={(val, text) => setPlantData({ ...plantData, Difficulty: text })} />
                                     </div>
 
                                     <div className='inputRow'>
@@ -177,8 +253,7 @@ useEffect(() => {
                                     </div>
 
                                     <div className='inputRow'>
-                                      <ShortTextInput title="الارتفاع الأدنى" placeholder="الارتفاع الأدنى" />
-                                      <ShortTextInput title="الارتفاع الأقصى" placeholder="الارتفاع الأقصى" />
+                                      <ShortTextInput title="الارتفاع" placeholder="مثال: 30 - 120 سم" value={plantData.Height} onChange={(e) => setPlantData({ ...plantData, Height: e.target.value })} />
                                     </div>
 
                                       <CheckList title="الهدف من النبتة" parentId={11} onChange={(val) => console.log("Goals selected:", val)} />
@@ -198,7 +273,7 @@ useEffect(() => {
                                 <div className='editoeCol'>
 
                                     <div className='inputRow'>
-                                      <DropDown title="نوع الإضاءة"  parentId={49}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="نوع الإضاءة"  parentId={49} value={plantData.Lighting} onChange={(val, text) => setPlantData({ ...plantData, Lighting: text })} />
                                       <DropDown title="شدة الإضاءة"  parentId={4}  onChange={(val) => console.log("Selected Care:", val)} />
                                       <ShortTextInput title="ساعات الإضاءة يوميًا" placeholder="اكتب عدد الساعات" />
                                       
@@ -214,7 +289,7 @@ useEffect(() => {
                                 <div className='editoeCol'>
 
                                     <div className='inputRow'>
-                                      <DropDown title="معدل السقي"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
+                                      <DropDown title="معدل السقي"  parentId={52} value={plantData.Watering} onChange={(val, text) => setPlantData({ ...plantData, Watering: text })} />
                                       <DropDown title="نوع السماد"  parentId={56}  onChange={(val) => console.log("Selected Care:", val)} />                                      
                                     </div>
 
@@ -233,7 +308,7 @@ useEffect(() => {
                                 <div className='editoeCol'>
 
                                       <DropDown title="معدل التنظيف"  parentId={52}  onChange={(val) => console.log("Selected Care:", val)} />
-                                      <RichText title="طريقة التنظيف" placeholder="اكتب طريقة التنظيف " isRich={true} />
+                                      <RichText title="طريقة التنظيف" placeholder="اكتب طريقة التنظيف " isRich={true} value={plantData.Care_Clean_Details} onChange={(val) => setPlantData({ ...plantData, Care_Clean_Details: val })} />
 
                                 </div>
                         </div>
@@ -245,7 +320,7 @@ useEffect(() => {
                                 <div className='editoeCol'>
 
                                     <div className='textButtonRow'>
-                                       <ShortTextInput title="رابط النموذج ثلاثي الأبعاد (.glb أو .gltf)" placeholder="3D model link" />
+                                       <ShortTextInput title="رابط النموذج ثلاثي الأبعاد (.glb أو .gltf)" placeholder="3D model link" value={plantData['3DModel']} onChange={(e) => setPlantData({ ...plantData, '3DModel': e.target.value })} />
                                        <SecondaryButton label="رفع" src={UploadIcon} />
                                     </div>
 
@@ -285,7 +360,7 @@ useEffect(() => {
                     </div>
 
                     <div className='narrowSec'>
-                        <StatusDropDown value={plantData.status}  onChange={(newStatus) => setPlantData({ ...plantData, status: newStatus })} />
+                        <StatusDropDown value={plantData.Status}  onChange={(newStatus) => setPlantData({ ...plantData, Status: newStatus })} />
                         <DeleteButton onClick={handleDelete} />
 
                     </div>

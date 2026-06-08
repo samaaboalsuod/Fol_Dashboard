@@ -1,12 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './ShortTextInput.css'
 
 
-const ShortTextInput = (props) => {
+const ShortTextInput = ({ title, placeholder, value, onChange }) => {
     return ( 
         <div className="shortTextCont">
-            <h5> {props.title} </h5>
-            <input type="text" placeholder={props.placeholder} />
+            <h5> {title} </h5>
+            <input 
+                type="text" 
+                placeholder={placeholder} 
+                value={value || ''} 
+                onChange={onChange} 
+            />
         </div>
      );
 }

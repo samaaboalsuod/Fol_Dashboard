@@ -107,6 +107,24 @@ useEffect(() => {
         navigate('/AddPlant'); // 3. Use the exact path from your RoutingApp
     };
 
+    const handleDeletePlant = (id) => {
+        setPlants(prevPlants => {
+            const newPlants = prevPlants.filter(p => p.id !== id);
+            
+            // Recalculate stats
+            setStats({
+                  total: newPlants.length,
+                  published: newPlants.filter(p => p.Status === 'منشور').length,
+                  rare: newPlants.filter(p => p.IsRare === true).length,
+                  petSafe: newPlants.filter(p => p.PetSafe === true).length,
+                  indoor: newPlants.filter(p => p.Category === 'نباتات داخلية' || p.Category === 'صباريات').length,
+                  airPurifying: newPlants.filter(p => p.AirPurifying === true).length
+            });
+
+            return newPlants;
+        });
+    };
+
     
     return ( <>
     
@@ -146,7 +164,7 @@ useEffect(() => {
 
                 <div className='plantsGrid'>
                     {plants.map((plant) => (
-                       <PlantCard key={plant.id} plant={plant} />
+                       <PlantCard key={plant.id} plant={plant} onDelete={handleDeletePlant} />
                      ))}
                 </div>
 
