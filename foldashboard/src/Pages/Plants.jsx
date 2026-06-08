@@ -5,8 +5,7 @@ import { supabase } from "../Supabase";
 
 import './Plants.css';
 
-import Nav from '../Components/Nav';
-import SideBar from '../Components/SideBar';
+import DashboardLayout from '../Components/DashboardLayout';
 import PageTitle from '../Components/PageTitle';
 import MainButton from '../Components/MainButton';
 import SearchBar from '../Components/SearchBar';
@@ -126,23 +125,9 @@ useEffect(() => {
     };
 
     
-    return ( <>
-    
-    <section className="dashboard-wrapper">
-
-        <aside>
-            <SideBar activeTitle="النباتات" />
-        </aside>
-
-        <main className="main-content">
-
-            <header>
-                <Nav />
-            </header>
-
-            <section className="dashboardBody">
-
-                <div className='topSec'>
+    return (
+        <DashboardLayout activeTitle="النباتات">
+            <div className='topSec'>
 
                     <PageTitle title={pageData.title} subTitle={pageData.subTitle} />
 
@@ -177,16 +162,9 @@ useEffect(() => {
                   <StatCard value={stats.airPurifying} label="منقية للهواء" />
                 </div>
 
-                <Footer />
-
-
-            </section>
-
-        </main>
-
-    </section>
-    
-    </> );
+            <Footer />
+        </DashboardLayout>
+    );
 }
  
 export default Plants;

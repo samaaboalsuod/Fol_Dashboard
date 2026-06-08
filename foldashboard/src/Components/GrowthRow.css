@@ -1,5 +1,6 @@
 .growth-row {
     width: 98%;
+    min-width: 650px; /* Forces scroll on small screens instead of squishing */
     display: flex;
     justify-content: space-between;
     align-items: center;

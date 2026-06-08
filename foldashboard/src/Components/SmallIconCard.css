@@ -1,10 +1,11 @@
 .smallCardIconCont{
-    width: 16vw;
-    padding: 1.2vw;
+    flex: 1;
+    min-width: 150px;
+    padding: 1.2rem;
 
     display: flex;
     flex-direction: column;
-    gap: .2vw;
+    gap: 0.5rem;
 
     background-color: #FFFFFF;
     border: 1px solid #E7EBE8;

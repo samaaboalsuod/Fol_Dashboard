@@ -1,10 +1,11 @@
 .StatisticsBigCardCont{
-    width: 24vw;
-    padding: 1.2vw;
+    flex: 1;
+    min-width: 240px;
+    padding: 1.5rem;
 
     display: flex;
     flex-direction: column;
-    gap: 2.4vw;
+    gap: 1.5rem;
 
     background-color: #FFFFFF;
     border: 1px solid #E7EBE8;

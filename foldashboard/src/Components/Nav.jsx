@@ -6,9 +6,12 @@ import NotificationIcon from '../Assets/notiIcon.svg'
 import UserIcon from '../Assets/userIcon.svg'
 import CircleIcon from './CircleIcon';
 
-const Nav = () => {
+const Nav = ({ toggleSidebar }) => {
     return ( 
         <nav>
+            <button className="hamburger-btn" onClick={toggleSidebar}>
+                &#9776;
+            </button>
             <SearchBar placeholder="بحث" />
 
             <div className='navleftContainer'>

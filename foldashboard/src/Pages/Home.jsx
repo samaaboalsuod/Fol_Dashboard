@@ -5,8 +5,7 @@ import { ar } from 'date-fns/locale';
 
 import './Home.css';
 
-import Nav from '../Components/Nav';
-import SideBar from '../Components/SideBar';
+import DashboardLayout from '../Components/DashboardLayout';
 import PageTitle from '../Components/PageTitle';
 import TimeFilter from '../Components/TimeFilter';
 import StatisticsBigCard from '../Components/StatisticsBigCard';
@@ -162,22 +161,8 @@ const alertsData = [
     if (loading) return <div className="loading-screen">جاري التحميل...</div>;
 
     return (
-        <>
-            <section className="dashboard-wrapper">
-
-                <aside>
-                    <SideBar activeTitle="لوحة التحكم" />
-                </aside>
-
-                <main className="main-content">
-
-                    <header>
-                        <Nav />
-                    </header>
-
-                    <section className="dashboardBody">
-
-                        <div className='topSec'>
+        <DashboardLayout activeTitle="لوحة التحكم">
+            <div className='topSec'>
                             <PageTitle title={pageData.title} subTitle={pageData.subTitle} />
                             <div className='filterCont'>
                                 <TimeFilter 
@@ -348,13 +333,7 @@ const alertsData = [
 
 
                     <Footer />
-                    </section>
-
-
-                </main>
-
-            </section>
-        </>
+        </DashboardLayout>
     );
 }
 

@@ -35,3 +35,19 @@ nav{
 
     background-color: #082f191e;
 }
+
+.hamburger-btn {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--darkText);
+    margin-left: 1rem;
+}
+
+@media screen and (max-width: 1024px) {
+    .hamburger-btn {
+        display: block;
+    }
+}

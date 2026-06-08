@@ -17,5 +17,10 @@ input{
     all: unset;
     font-family: var(--arabicFont);
     width: 100%;
+}
 
+@media screen and (max-width: 1024px) {
+    .searchBar {
+        width: 100%;
+    }
 }

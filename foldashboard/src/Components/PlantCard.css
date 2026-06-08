@@ -90,3 +90,9 @@
 .green-text2 { color: #cbffe3; }
 .orange-text2 { color: #ffe5cf; }
 .red-text2 { color: #ffcfcf; }
+
+@media screen and (max-width: 768px) {
+    .plantCard {
+        width: 100%;
+    }
+}

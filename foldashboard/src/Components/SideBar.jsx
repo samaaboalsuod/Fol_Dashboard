@@ -14,7 +14,6 @@ import AskIcon from '../Assets/askIcon.svg'
 import ProductIcon from '../Assets/productIcon.svg'
 import OrderIcon from '../Assets/ordersIcon.svg'
 import AppIcon from '../Assets/appIcon.svg'
-import KiosIcon from '../Assets/kioskIcon.svg'
 import UsersIcon from '../Assets/usersIcon.svg'
 import SettiingIcon from '../Assets/settingIcon.svg'
 
@@ -58,7 +57,6 @@ const SideBar = ({ activeTitle }) => {
                 <SideBarItem src={ProductIcon} title="المنتجات" isActive={activeTitle === "المنتجات"}/>
                 <SideBarItem src={OrderIcon} title="الطلبات" isActive={activeTitle === "الطلبات"}/>
                 <SideBarItem src={AppIcon} title="تجربة التطبيق" isActive={activeTitle === "تجربة التطبيق"}/>
-                <SideBarItem src={KiosIcon} title="تجربة الكشك" isActive={activeTitle === "تجربة الكشك"}/>
                 <SideBarItem src={SettiingIcon} title="الإعدادات" isActive={activeTitle === "الإعدادات"}/>
                 <SideBarItem src={UsersIcon} title="المستخدمون" isActive={activeTitle === "المستخدمون"}/>
             </div>
